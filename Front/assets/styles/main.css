@@ -1,0 +1,32 @@
+:root {
+    --cor-primaria:#1E1E24; /* Cor principal azul */
+    --cor-secundaria: #ff6600; /* Cor secundária laranja */
+    --cor-background-1:#5EB42D;
+    --cor-bordas:#99FF87;
+    --cor-background-bordas:#0C4E21;
+}
+main{
+    height: 75vh;
+    
+}
+.adcionar-produto{
+
+    border:1px solid #1E1E24;
+    border-radius: 5px;
+}
+
+h3{
+    text-align: center;
+    margin: auto;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    min-height: max-content;
+    margin: auto;
+    gap: .5em;
+    padding: 1em;
+   
+}
