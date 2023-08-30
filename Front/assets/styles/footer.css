@@ -1,12 +1,3 @@
-:root {
-    --cor-primaria: #1E1E24;
-    /* Cor principal azul */
-    --cor-secundaria: #ff6600;
-    /* Cor secundária laranja */
-    --cor-background-1: #5EB42D;
-    --cor-bordas: #99FF87;
-    --cor-background-bordas: #0C4E21;
-}
 
 footer {
     display: flex;

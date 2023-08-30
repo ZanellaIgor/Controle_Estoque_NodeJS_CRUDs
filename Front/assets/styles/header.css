@@ -1,9 +1,13 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700&display=swap');
+
 :root {
     --cor-primaria:#1E1E24; /* Cor principal azul */
     --cor-secundaria: #ff6600; /* Cor secundária laranja */
-    --cor-background-1:#5EB42D;
-    --cor-bordas:#99FF87;
-    --cor-background-bordas:#0C4E21;
+    --cor-nav:#59B53F;
+    --cor-nav-hover:#478E33;
+    --cor-background-bordas:#76C95E;
+    --cor-font:#fafdf9;
 }
 *{
     margin: 0;
@@ -11,6 +15,9 @@
     box-sizing: border-box;
     list-style:none;
     outline: none;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--cor-font);
 }
 body{
     gap: 30px;
@@ -32,15 +39,23 @@ nav{
     width: 100%;
     height: 5vh;
     text-align: center;
-    background-color: #5EB42D;
 }
 
 .menu-title {
+    background-color: var(--cor-nav);
     cursor: pointer;
 }
+.menu-title:hover{
+    background-color: var(--cor-nav-hover);
+    z-index: 1;
+    color: var(--cor-font);
+}
+
 .sub-menu {
     display: none;
 }
 .active {
     font-weight: bold;
+    z-index: 9999;
+    background-color: var(--cor-nav-hover);
 }
