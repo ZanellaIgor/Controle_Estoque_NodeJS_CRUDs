@@ -12,6 +12,7 @@
 *{
     margin: 0;
     gap: 0;
+    padding: 0;
     box-sizing: border-box;
     list-style:none;
     outline: none;
@@ -36,26 +37,29 @@ header h1{
 nav{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    width: 100%;
-    height: 5vh;
     text-align: center;
+    background-color: var(--cor-nav);
 }
 
 .menu-title {
-    background-color: var(--cor-nav);
     cursor: pointer;
+    height: 100%;
 }
 .menu-title:hover{
     background-color: var(--cor-nav-hover);
-    z-index: 1;
     color: var(--cor-font);
 }
 
 .sub-menu {
     display: none;
+    position: absolute;
+    width: 33.33%;
 }
-.active {
+.active{
     font-weight: bold;
     z-index: 9999;
     background-color: var(--cor-nav-hover);
+} 
+li:hover{
+    background-color: red;
 }

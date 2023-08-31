@@ -3,8 +3,10 @@ main{
     height: 75vh;
     
 }
+.conteudo{
+    color: #1E1E24;
+}
 .adcionar-produto{
-
     border:1px solid #1E1E24;
     border-radius: 5px;
 }

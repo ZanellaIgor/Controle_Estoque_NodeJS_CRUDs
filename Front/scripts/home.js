@@ -10,7 +10,8 @@ menuTitles.forEach(menuTitle => {
         // Alternar a exibição do submenu
         submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
 
+    
         // Adicionar ou remover a classe "active" para realçar o item de menu
-        menuTitle.classList.toggle('active');
+        submenu.classList.toggle('active');
     });
 });
