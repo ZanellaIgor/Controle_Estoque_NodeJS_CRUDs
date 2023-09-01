@@ -9,6 +9,7 @@
     --cor-background-bordas:#76C95E;
     --cor-font:#fafdf9;
 }
+
 *{
     margin: 0;
     gap: 0;
@@ -18,48 +19,59 @@
     outline: none;
     text-decoration: none;
     font-family: 'Montserrat', sans-serif;
-    color: var(--cor-font);
+    
 }
 body{
     gap: 30px;
 }
 
 header {
-    height: 10vh;
+    height: 7vh;
     background-color: var(--cor-background-bordas);
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    color: var(--cor-font);
+
 }
 header h1{
-    margin-left: 2em;
+    background: var(--cor-nav);
+    border-radius:0px 0.8em 2px 2px;
+    height: 100%;
+}
+svg{
+    color: var(--cor-font);
 }
 nav{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     text-align: center;
     background-color: var(--cor-nav);
+    border-radius: 0px 0px 2px 2px;
+    font-weight: 400;
+    font-size: 1em;
+    height: 3vh;
 }
+li{
+    color: var(--cor-font);
 
+}
 .menu-title {
     cursor: pointer;
     height: 100%;
 }
-.menu-title:hover{
-    background-color: var(--cor-nav-hover);
-    color: var(--cor-font);
-}
-
 .sub-menu {
     display: none;
     position: absolute;
     width: 33.33%;
 }
 .active{
-    font-weight: bold;
     z-index: 9999;
-    background-color: var(--cor-nav-hover);
+    background-color: var(--cor-nav);
+    border-radius: 0px 0px 6px 6px;
 } 
 li:hover{
-    background-color: red;
+    background-color:var(--cor-nav-hover);
+    border-radius: 6px;
 }

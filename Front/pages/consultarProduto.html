@@ -1,50 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Produto</title>
+    <title>Bem vindo</title>
     <link rel="stylesheet" href="../assets/styles/header.css">
     <link rel="stylesheet" href="../assets/styles/footer.css">
     <link rel="stylesheet" href="../assets/styles/main.css">
     <script src="../scripts/home.js" defer></script>
-    <script src="../scripts/consultarProduto.js" defer></script>
 </head>
 <body>
     <header>
-        <h1>bem vindo Usuario xxx</h1>
+        <h1>Controle de Estoque</h1>
+        <a href="/Front/home.html"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4 21V9l8-6l8 6v12h-6v-7h-4v7H4Z"/></svg></a>
     </header>
     <nav>
-        <div>
-            <div class="menu-title">Produtos</div>
-            <ul class="sub-menu">
-                <a href="./adicionarProduto.html"><li>Cadastrar</li></a>
-                <a href="./consultarProduto.html"><li>Consultar</li></a>
-            </ul>
-        </div>
-        <div>
-            <div class="menu-title">Clientes</div>
-            <ul class="sub-menu">
-                <a href="./adicionarCliente.html"><li>Cadastrar</li></a>
-                <a href="./consultarCliente.html"><li>Consultar</li></a>
-            </ul>
-        </div>
-        <div>
-            <div class="menu-title">Pedidos</div>
-            <ul class="sub-menu">
-                <a href="./pedido.html"><li>Cadastrar</li></a>
-                <a href="./consultarPedido.html"><li>Consultar</li></a>
-            </ul>
-        </div>
+        <ul class="container-menu">
+            <li class="menu-title">Produtos</li>
+            <div class="sub-menu">
+                <a href="./cadastrarProduto.html">
+                    <li>Cadastrar</li>
+                </a>
+                <a href="./consultarProduto.html">
+                    <li>Consultar</li>
+                </a>
+            </div>
+        </ul>
+        <ul class="container-menu">
+            <li class="menu-title">Clientes</li>
+            <div class="sub-menu">
+                <a href="./cadastrarCliente.html">
+                    <li>Cadastrar</li>
+                </a>
+                <a href="./consultarCliente.html">
+                    <li>Consultar</li>
+                </a>
+            </div>
+        </ul>
+        <ul class="container-menu">
+            <li class="menu-title">Pedidos</li>
+            <div class="sub-menu">
+                <a href="./cadastrarPedido.html">
+                    <li>Cadastrar</li>
+                </a>
+                <a href="./consultarPedido.html">
+                    <li>Consultar</li>
+                </a>
+            </div>
+        </ul>
     </nav>
     <main>
-        <div class="produto-consultar">
-            <h3>Meus Produtos</h3>
-            <div class="teste"></div>
+        <div class="conteudo">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi deserunt dignissimos assumenda rerum illum
+                tempore nobis exercitationem temporibus, maiores vero quas provident commodi, soluta voluptates minima
+                inventore alias ad! Explicabo!</p>
         </div>
     </main>
     <footer>
         <p>Projeto criado @2023</p>
     </footer>
 </body>
+
 </html>

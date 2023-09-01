@@ -1,28 +1,27 @@
 
 main{
-    height: 75vh;
-    
+    height: 80vh;
 }
-.conteudo{
-    color: #1E1E24;
-}
-.adcionar-produto{
-    border:1px solid #1E1E24;
-    border-radius: 5px;
-}
+
 
 h3{
     text-align: center;
     margin: auto;
 }
-
 form{
     display: flex;
     flex-direction: column;
     max-width: 500px;
-    min-height: max-content;
     margin: auto;
     gap: .5em;
-    padding: 1em;
-   
+    padding: 1em;  
+}
+input{
+    border-radius: 4px;
+}
+button{
+    border: none;
+    border-radius:6px;
+    background-color: aqua;
+    width: 80px;
 }
