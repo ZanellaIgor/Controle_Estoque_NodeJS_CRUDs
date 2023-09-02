@@ -1,12 +1,51 @@
-import { Produto } from "../../modules/classes/produto";
-const produtos = [{"id":30,"createdAt":"2023-02-10T12:11:37.582Z","nome":"Cadeira Gamer Husky Gaming Blizzard, Preto, Com Almofadas, Reclinável, Descanso de Braço 2D","valorVenda":"879","referencia":"HGMA005","unidadeMedida":"UN","fabricante":"Husky Gamingss","estoque":2,"imagemProduto":"https://images.kabum.com.br/produtos/fotos/92728/92728_1507751467_index_gg.jpg"},{"id":31,"createdAt":"2023-02-10T16:44:55.642Z","nome":"Smart TV Samsung 50 Polegadas 4K QLED, HDMI, USB, Modo Game, Processador IA, Pontos Quânticos, Alexa Google Assistant, Preto - QN50Q80AAGXZD","valorVenda":"319.99","referencia":"QN50Q80AAGXZD","unidadeMedida":"UN","fabricante":"Samsumg","estoque":2,"imagemProduto":"https://images.kabum.com.br/produtos/fotos/242184/smart-tv-50-4k-qled-samsung-hdmi-usb-modo-game-processador-ia-pontos-quanticos-alexa-e-google-assistant-preto-50q80a_1634650925_gg.jpg"},{"id":32,"createdAt":"2023-02-10T17:18:35.958Z","nome":"Placa de Vídeo RTX 3060 Verto PNY NVIDIA GeForce, 8 GB GDDR6, DLSS, Ray Tracing - VCG30608DFBPB1","valorVenda":"2099.99","referencia":"VCG30608DFBPB1","unidadeMedida":"UN","fabricante":"NVIDIA","estoque":1,"imagemProduto":"https://images.kabum.com.br/produtos/fotos/417543/placa-de-video-rtx-3060-verto-pny-nvidia-geforce-8-gb-gddr6-dlss-ray-tracing-vcg30608dfbpb1_1675699759_gg.jpg"},{"id":33,"createdAt":"2023-03-30T22:48:40.417Z","nome":"GOL RALLYE VERMELHO 2012","valorVenda":"40","referencia":"GRV2012","unidadeMedida":"UNIDADE","fabricante":"VOLKSWAGEN","estoque":1,"imagemProduto":"https://img-us-2.trovit.com/img2br/191K1kqGc1hG/191K1kqGc1hG.1_10.jpg"},{"id":39,"createdAt":"2023-04-01T22:43:15.940Z","nome":"Vingadores","valorVenda":"30.99","referencia":"Filmes ","unidadeMedida":"tickets","fabricante":"Marvel","estoque":25,"imagemProduto":"https://cinepop.com.br/wp-content/uploads/2022/04/painel-vingadores-2-50-x-1-50m-capitao-america.jpg"},{"id":40,"createdAt":"2023-04-01T22:50:51.925Z","nome":"Liga das Vendas","valorVenda":"0.99","referencia":"GAMES","unidadeMedida":"VIDAS","fabricante":"","estoque":999,"imagemProduto":"https://s2.glbimg.com/6YvIsDcexAtTGOoYeVyeSAeex4U=/0x0:620x412/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2021/P/O/SliaVATJqpmTX6XqGMRA/2011-11-27-lol.jpg"},{"id":42,"createdAt":"2023-04-02T18:06:20.475Z","nome":"Impressora Multifuncional DeskJe","valorVenda":"30.55","referencia":"Scanners","unidadeMedida":"UN","fabricante":"hp","estoque":25,"imagemProduto":"https://m.media-amazon.com/images/I/61lt9hLm6BL._AC_SL1500_.jpg"},{"id":43,"createdAt":"2023-04-02T18:12:03.746Z","nome":"Controller Gamer s35","valorVenda":"30.65","referencia":"games","unidadeMedida":"UNIDADE","fabricante":"PSN","estoque":3,"imagemProduto":"https://m.media-amazon.com/images/I/41L5aQhcRcL._AC_SL1000_.jpg"},{"id":44,"createdAt":"2023-04-03T22:07:57.571Z","nome":"Monitor Gamer Mancer Valak, 23.6 Pol VA, Curvo, FHD, 1ms, 180Hz, FreeSync e G-Sync, HDMI/DP, MCR-VLK24-BL01","valorVenda":"929.9","referencia":"‎Monitor Gamer Valak 23.6","unidadeMedida":"UNIDADE","fabricante":"Mancer","estoque":900,"imagemProduto":"https://m.media-amazon.com/images/I/61WZHD7HByL._AC_SX679_.jpg"},{"id":45,"createdAt":"2023-04-03T22:09:05.959Z","nome":"Luminária LED para monitor e notebook, brilho ajustável","valorVenda":"182.96","referencia":"‎DGIWK-01","unidadeMedida":"UNIDADE","fabricante":"Não Informado","estoque":487,"imagemProduto":"https://m.media-amazon.com/images/I/41fXXFuAIsL._AC_SX522_.jpg"}];
+//import { Produto } from "../../modules/classes/produto";
+const produtos = [
+    {"id":1,"nome":"celula","referencia":"Referencia","estoque":5, "unidade":"UN"},
+    {"id":2, "nome":"karla","referencia":"Referencia2","estoque":10, "unidade":"CD" },
+];
 
- 
-produtos.forEach(produto => {
-    const teste = document.querySelector('.teste')
+const table = document.createElement("table")
+const th = document.createElement("th")
+
+
+
+function insertText(texto){
     const td = document.createElement("td");
-    const nome = produto.nome
-    td.innerHTML=nome
-    teste.appendChild(td)
+    td.innerHTML=texto
+    return td
+}
+
+produtos.map(produto => {
+    const render = document.querySelector('.produto-render');
+    const nome = insertText(produto.nome);
+    const referencia = insertText(produto.referencia);
+    const quantidade =insertText(`${produto.estoque} ${produto.unidade}`);
+    const tr =document.createElement('tr');
     
+    console.log(render);
+    tr.appendChild(nome);
+    tr.appendChild(referencia);
+    tr.appendChild(quantidade);
+
+    
+    table.appendChild(tr);
+    console.log(render)
+    render.appendChild(table);
 });
+
+// produtos.forEach(produto => {
+//     const container = document.querySelector('.produto-render');
+
+//     const row = document.createElement("tr"); // Criar uma nova linha para cada produto
+
+//     const nomeCell = insertText(produto.nome);
+//     const referenciaCell = insertText(produto.referencia);
+//     const estoqueCell = insertText(produto.estoque);
+
+//     row.appendChild(nomeCell);
+//     row.appendChild(referenciaCell);
+//     row.appendChild(estoqueCell);
+
+//     table.appendChild(row);
+//     container.appendChild(table);
+// });

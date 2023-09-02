@@ -9,11 +9,15 @@
     <link rel="stylesheet" href="../assets/styles/footer.css">
     <link rel="stylesheet" href="../assets/styles/main.css">
     <script src="../scripts/home.js" defer></script>
+    <script src="../scripts/consultarProduto.js" defer></script>
 </head>
+
 <body>
     <header>
         <h1>Controle de Estoque</h1>
-        <a href="/Front/home.html"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4 21V9l8-6l8 6v12h-6v-7h-4v7H4Z"/></svg></a>
+        <a href="/Front/home.html"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M4 21V9l8-6l8 6v12h-6v-7h-4v7H4Z" />
+            </svg></a>
     </header>
     <nav>
         <ul class="container-menu">
@@ -52,9 +56,18 @@
     </nav>
     <main>
         <div class="conteudo">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi deserunt dignissimos assumenda rerum illum
-                tempore nobis exercitationem temporibus, maiores vero quas provident commodi, soluta voluptates minima
-                inventore alias ad! Explicabo!</p>
+            <h3>Consulta de Produtos</h3>
+            <form class="consulta-cliente" action="">
+                <label for="codigo">Código:
+                <input type="text" name="codigo" id="codigo" placeholder="Código do Produto"></label>
+                <label for="nome">Nome:
+                <input type="text" name="nome" id="nome" placeholder="Descrição do Produto"></label>
+                <label for="referencia">Referência:
+                <input type="text" name="referencia" id="referencia" placeholder="Referência do Produto"></label>
+            </form>
+            <div class='produto-render'>
+                
+            </div>
         </div>
     </main>
     <footer>

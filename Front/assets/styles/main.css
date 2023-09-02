@@ -17,11 +17,19 @@ form{
     padding: 1em;  
 }
 input{
+    border: none;
     border-radius: 4px;
+    background-color: aqua;
 }
 button{
     border: none;
     border-radius:6px;
     background-color: aqua;
     width: 80px;
+    cursor: pointer;
+}
+
+.consulta-cliente{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
