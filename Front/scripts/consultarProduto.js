@@ -45,7 +45,9 @@ produtos.map(produto => {
     render.appendChild(table);
 });
 
-
+const inputCodigo = document.getElementById('codigo')
+const inputNome = document.getElementById('nome')
+const inputReferencia = document.getElementById('referencia')
 
 // produtos.forEach(produto => {
 //     const container = document.querySelector('.produto-render');
