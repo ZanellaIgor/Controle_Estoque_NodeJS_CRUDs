@@ -1,35 +1,50 @@
-
-main{
+main {
     height: 80vh;
 }
 
 
-h3{
+h3 {
     text-align: center;
     margin: auto;
 }
-form{
+
+form {
     display: flex;
     flex-direction: column;
     max-width: 500px;
     margin: auto;
     gap: .5em;
-    padding: 1em;  
+    padding: 1em;
 }
-input{
+
+input {
     border: none;
     border-radius: 4px;
     background-color: aqua;
 }
-button{
+
+button {
     border: none;
-    border-radius:6px;
+    border-radius: 6px;
     background-color: aqua;
     width: 80px;
     cursor: pointer;
 }
 
-.consulta-cliente{
+.consulta-cliente {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+}
+
+.produto-render {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+table{
+    border: 1px solid red;
+    margin: auto;
+    border-radius: 6px;
+    width: 80%;
+    text-align: right;
 }
