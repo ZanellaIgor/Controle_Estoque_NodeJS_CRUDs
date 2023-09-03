@@ -9,11 +9,16 @@ const produtos = [
 
 const table = document.createElement("table")
 
+//cabeçalho da tabela
 function insertTh(texto) {
     const th = document.createElement("th")
     th.innerText = texto
-    console.log(th)
     return table.appendChild(th)
+}
+
+//Em breve no CRUD para deletar
+function deletarProduto(produto){
+   alert(`Estou deletando o produto ${produto}`)
 }
 
 const th1 = insertTh('Código');
@@ -28,6 +33,7 @@ function insertText(texto) {
     return td
 }
 
+//Função para renderização;
 produtos.map(produto => {
     const render = document.querySelector('.produto-render');
     const codigo = insertText(produto.id);
@@ -35,33 +41,40 @@ produtos.map(produto => {
     const referencia = insertText(produto.referencia);
     const quantidade = insertText(`${produto.estoque} ${produto.unidade}`);
     const tr = document.createElement('tr');
-
+    const buttonExcluir = insertText(`
+    <button class="button-limpar" onclick="deletarProduto(${produto.id})">Excluir<button/> 
+    <button class="button-editar"><a href="./editarProduto.html">Editar<a><button/>`)
+    
     tr.appendChild(codigo);
     tr.appendChild(nome);
     tr.appendChild(referencia);
     tr.appendChild(quantidade);
+    tr.appendChild(buttonExcluir);
 
     table.appendChild(tr);
     render.appendChild(table);
 });
 
-const inputCodigo = document.getElementById('codigo')
-const inputNome = document.getElementById('nome')
-const inputReferencia = document.getElementById('referencia')
 
-// produtos.forEach(produto => {
-//     const container = document.querySelector('.produto-render');
+const filtrar = document.querySelector('.button-enviar')
 
-//     const row = document.createElement("tr"); // Criar uma nova linha para cada produto
-
-//     const nomeCell = insertText(produto.nome);
-//     const referenciaCell = insertText(produto.referencia);
-//     const estoqueCell = insertText(produto.estoque);
-
-//     row.appendChild(nomeCell);
-//     row.appendChild(referenciaCell);
-//     row.appendChild(estoqueCell);
-
-//     table.appendChild(row);
-//     container.appendChild(table);
-// });
+filtrar.addEventListener("click", filtro = (e) => {
+    e.preventDefault();
+    const inputCodigo = document.getElementById('codigo').value
+    const inputNome = document.getElementById('nome').value
+    const inputReferencia = document.getElementById('referencia').value
+    const pr = [...produtos]
+    const produtosFiltrados = pr.filter((produto) => {
+        if (inputCodigo && !produto.id == inputCodigo) {
+            return false;
+        }
+        if (inputNome && !produto.nome.toLowerCase().includes(inputNome.toLowerCase())) {
+            return false;
+        }
+        if (inputReferencia && !produto.referencia.toLowerCase().includes(inputReferencia.toLowerCase())) {
+            return false;
+        }
+        return true;
+    })
+    console.log(produtosFiltrados) 
+});
