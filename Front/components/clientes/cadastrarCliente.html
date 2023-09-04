@@ -55,25 +55,28 @@
         <div class="cliente cadastrar">
             <h3>Cadastrar Cliente:</h3>
             <form action="" class="container-cliente">
-                <label for="nome">Nome:
-                    <input type="text" name="nome" id="nome"></label>
-                <div>
-                    <label>
-                        <input type="radio" name="tipo" value="pessoa_juridica">
-                        Pessoa Jurídica
-                    </label>
-                    <label>
-                        <input type="radio" name="tipo" value="pessoa_fisica">
-                        Pessoa Física
-                    </label>
+                <div class="container-principal">
+                    <label for="nome">Nome:
+                        <input type="text" name="nome" id="nome"></label>
+                    <div>
+                        <label>
+                            <input type="radio" name="tipo" value="pessoa_juridica">
+                            Jurídica
+                        </label>
+                        <label>
+                            <input type="radio" name="tipo" value="pessoa_fisica">
+                            Física
+                        </label>
+                    </div>
+                    <label for="cpfCnpj">CPF/CNPJ:
+                        <input type="text" name="cpfCnpj" id="cpfCnpj"></label>
+                        <div class="cep"><label for="cep">CEP:
+                            <input type="text" name="cep" id="cep"></label>
+                        <button type="button-pesquisa">Buscar</button>
+                    </div>
                 </div>
-                <label for="cpfCnpj">CPF/CNPJ:
-                    <input type="text" name="cpfCnpj" id="cpfCnpj"></label>
-                <div><label for="cep">CEP:
-                        <input type="text" name="cep" id="cep"></label>
-                    <button type="button-pesquisa">Buscar</button>
-                </div>
-                <div class="container-cliente endereco">
+                
+                <div class="container-endereco">
                     <label for="cidade">Cidade:
                         <input type="text" name="cidade" id="cidade"></label>
                     <label for="estado">Estado:
@@ -81,12 +84,12 @@
                     <label for="rua">Rua:
                         <input type="text" name="rua" id="rua"></label>
                     <label for="numero">Número:
-                        <input type="text" name="numero" id="numero"></label>
+                        <input type="number" name="numero" id="numero"></label>
                     <label for="complemento">Complemento:
                         <input type="text" name="complemento" id="complemento"></label>
                     <button type="submit" class="button-enviar">Cadastrar</button>
                 </div>
-                </form>
+            </form>
         </div>
     </main>
     <footer>
