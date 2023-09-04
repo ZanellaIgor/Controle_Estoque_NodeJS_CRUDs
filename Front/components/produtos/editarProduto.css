@@ -1,5 +1,5 @@
-main {
-    height: 80vh;
+main{
+    height: 82vh;
 }
 h3 {
     text-align: center;
@@ -24,23 +24,4 @@ button {
     background-color: aqua;
     width: 80px;
     cursor: pointer;
-}
-.consulta-cliente {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-
-table {
-    border: 1px solid red;
-    margin: auto;
-    border-radius: 6px;
-    width: 80%;
-    text-align: right;
-}
-.container-cliente.endereco {
-    display: none;
-}
-.conatiner-cliente label {
-    flex: 1;
 }

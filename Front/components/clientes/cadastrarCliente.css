@@ -1,0 +1,27 @@
+main {
+    height: 82vh;
+}
+h3 {
+    text-align: center;
+    margin: auto;
+}
+input {
+    border: none;
+    border-radius: 4px;
+    background-color: aqua;
+}
+button {
+    border: none;
+    border-radius: 6px;
+    background-color: aqua;
+    width: 80px;
+    cursor: pointer;
+}
+.container-cliente{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container-cliente.endereco {
+    display: none;
+}

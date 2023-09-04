@@ -1,17 +1,14 @@
-main {
-    height: 80vh;
+main{
+    height: 82vh;
 }
 h3 {
     text-align: center;
     margin: auto;
 }
-form {
+.produto-render {
     display: flex;
-    flex-direction: column;
-    max-width: 80%;
-    margin: auto;
-    gap: .5em;
-    padding: 1em;
+    justify-content: center;
+    align-items: center;
 }
 input {
     border: none;
@@ -25,22 +22,10 @@ button {
     width: 80px;
     cursor: pointer;
 }
-.consulta-cliente {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-
 table {
-    border: 1px solid red;
     margin: auto;
     border-radius: 6px;
     width: 80%;
     text-align: right;
-}
-.container-cliente.endereco {
-    display: none;
-}
-.conatiner-cliente label {
-    flex: 1;
+    margin: auto;
 }

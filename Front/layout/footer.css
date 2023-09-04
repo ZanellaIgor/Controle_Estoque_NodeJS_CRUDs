@@ -1,0 +1,8 @@
+
+footer {
+    display: flex;
+    margin: auto;
+    background-color: var(--cor-background-bordas);
+    height: 8vh;
+    width: 100%;
+}

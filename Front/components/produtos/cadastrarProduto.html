@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Produto</title>
+    <link rel="stylesheet" href="../../layout/footer.css">
+    <link rel="stylesheet" href="../../layout/header.css">
+    <link rel="stylesheet" href="./cadastrarproduto.css">
+    <script src="../../layout/home.js" defer></script>
+    <script src="./cadastrarProduto.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Controle de Estoque</h1>
+        <a href="../../layout/home.html"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4 21V9l8-6l8 6v12h-6v-7h-4v7H4Z"/></svg></a>
+    </header>
+    <nav>
+        <ul class="container-menu">
+            <li class="menu-title">Produtos</li>
+            <div class="sub-menu">
+                <a href="./cadastrarProduto.html">
+                    <li>Cadastrar</li>
+                </a>
+                <a href="./consultarProduto.html">
+                    <li>Consultar</li>
+                </a>
+            </div>
+        </ul>
+        <ul class="container-menu">
+            <li class="menu-title">Clientes</li>
+            <div class="sub-menu">
+                <a href="./../clientes/cadastrarCliente.html">
+                    <li>Cadastrar</li>
+                </a>
+                <a href="../clientes/consultarCliente.html">
+                    <li>Consultar</li>
+                </a>
+            </div>
+        </ul>
+        <ul class="container-menu">
+            <li class="menu-title">Pedidos</li>
+            <div class="sub-menu">
+                <a href="./../pedidos/cadastrarPedido.html">
+                    <li>Cadastrar</li>
+                </a>
+                <a href="./../pedidos/consultarPedido.html">
+                    <li>Consultar</li>
+                </a>
+            </div>
+        </ul>
+    </nav>
+    <main>
+        <div class="produto-adicionar">
+            <h3>Adicionar Produto</h3>
+            <form action="">
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome" placeholder="Digite a Descrição do Produto">
+                <label for="referencia">Referência:</label>
+                <input type="text" name="referencia" id="referencia" placeholder="Digite a Referência do Produto">
+                <label for="valor">Valor de Venda:</label>
+                <input type="number" name="valor" id="valor" step="0.01">
+                <label for="estoque">Estoque:</label>
+                <input type="number" name="estoque" id="estoque" step=".01">
+                <label for="unidade">Unidade:</label>
+                <input type="text" name="unidade" id="unidade" maxlength="3">
+                <label for="imagem">Imagem:</label>
+                <input type="text" name="imagem" id="imagem" placeholder="Digite o Link da imagem...">
+                <button type="submit" class="button-enviar">Cadastrar</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>Projeto criado @2023</p>
+    </footer>
+</body>
+</html>

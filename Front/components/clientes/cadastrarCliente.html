@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem vindo</title>
+    <link rel="stylesheet" href="../../layout/footer.css">
+    <link rel="stylesheet" href="../../layout/header.css">
+    <link rel="stylesheet" href="./cadastrarCliente.css">
+    <script src="../../layout/home.js" defer></script>
+    <script src="./cadastrarCliente.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Controle de Estoque</h1>
+        <a href="../../layout/home.html"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4 21V9l8-6l8 6v12h-6v-7h-4v7H4Z"/></svg></a>
+    </header>
+    <nav>
+        <ul class="container-menu">
+            <li class="menu-title">Produtos</li>
+            <div class="sub-menu">
+                <a href="../produtos/cadastrarProduto.html">
+                    <li>Cadastrar</li>
+                </a>
+                <a href="../produtos/consultarProduto.html">
+                    <li>Consultar</li>
+                </a>
+            </div>
+        </ul>
+        <ul class="container-menu">
+            <li class="menu-title">Clientes</li>
+            <div class="sub-menu">
+                <a href="./cadastrarCliente.html">
+                    <li>Cadastrar</li>
+                </a>
+                <a href="./consultarCliente.html">
+                    <li>Consultar</li>
+                </a>
+            </div>
+        </ul>
+        <ul class="container-menu">
+            <li class="menu-title">Pedidos</li>
+            <div class="sub-menu">
+                <a href="./../pedidos/cadastrarPedido.html">
+                    <li>Cadastrar</li>
+                </a>
+                <a href="./../pedidos/consultarPedido.html">
+                    <li>Consultar</li>
+                </a>
+            </div>
+        </ul>
+    </nav>
+    <main>
+        <div class="cliente cadastrar">
+            <h3>Cadastrar Cliente:</h3>
+            <form action="" class="container-cliente">
+                <label for="nome">Nome:
+                    <input type="text" name="nome" id="nome"></label>
+                <div>
+                    <label>
+                        <input type="radio" name="tipo" value="pessoa_juridica">
+                        Pessoa Jurídica
+                    </label>
+                    <label>
+                        <input type="radio" name="tipo" value="pessoa_fisica">
+                        Pessoa Física
+                    </label>
+                </div>
+                <label for="cpfCnpj">CPF/CNPJ:
+                    <input type="text" name="cpfCnpj" id="cpfCnpj"></label>
+                <div><label for="cep">CEP:
+                        <input type="text" name="cep" id="cep"></label>
+                    <button type="button-pesquisa">Buscar</button>
+                </div>
+                <div class="container-cliente endereco">
+                    <label for="cidade">Cidade:
+                        <input type="text" name="cidade" id="cidade"></label>
+                    <label for="estado">Estado:
+                        <input type="text" name="estado" id="estado"></label>
+                    <label for="rua">Rua:
+                        <input type="text" name="rua" id="rua"></label>
+                    <label for="numero">Número:
+                        <input type="text" name="numero" id="numero"></label>
+                    <label for="complemento">Complemento:
+                        <input type="text" name="complemento" id="complemento"></label>
+                    <button type="submit" class="button-enviar">Cadastrar</button>
+                </div>
+                </form>
+        </div>
+    </main>
+    <footer>
+        <p>Projeto criado @2023</p>
+    </footer>
+</body>
+
+</html>

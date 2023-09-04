@@ -1,9 +1,0 @@
-
-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--cor-background-bordas);
-    height: 10vh;
-    width: 100%;
-}
