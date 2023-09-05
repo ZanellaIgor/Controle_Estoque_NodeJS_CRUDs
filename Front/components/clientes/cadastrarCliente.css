@@ -24,24 +24,25 @@ form {
     padding: 1em;
     
 }
-.container-principal{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-label {
-    margin-left: 1em;    
+.container-cliente{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
-.container-endereco{
+
+.container-principal{
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
     margin: auto;
 }
 
-
+.container-endereco{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
 /* .container-cliente{
     display: flex;
     align-items: center;
