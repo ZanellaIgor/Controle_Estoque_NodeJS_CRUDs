@@ -1,0 +1,31 @@
+main{
+    height: 82vh;
+}
+h3 {
+    text-align: center;
+    margin: auto;
+}
+.produto-render {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+input {
+    border: none;
+    border-radius: 4px;
+    background-color: aqua;
+}
+button {
+    border: none;
+    border-radius: 6px;
+    background-color: aqua;
+    width: 80px;
+    cursor: pointer;
+}
+table {
+    margin: auto;
+    border-radius: 6px;
+    width: 80%;
+    text-align: right;
+    margin: auto;
+}

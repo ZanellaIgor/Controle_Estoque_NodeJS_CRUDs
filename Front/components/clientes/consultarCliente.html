@@ -7,6 +7,7 @@
     <title>Bem vindo</title>
     <link rel="stylesheet" href="../../layout/footer.css">
     <link rel="stylesheet" href="../../layout/header.css">
+    <link rel="stylesheet" href="./consultarCliente.css">
     <script src="../../layout/home.js" defer></script>
     <script src="./consultarCliente.js" defer></script>
 </head>
@@ -52,12 +53,23 @@
     </nav>
     <main>
         <div class="conteudo">
-            <label for=""></label>
-            <input type="text">
-            <label for=""></label>
-            <input type="text">
-            <label for=""></label>
-            <input type="text">
+            <form action="">
+            <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome">
+            <label for="cpfCnpj">CPF/CNPJ:</label>
+                <input type="text" name="cpfCnpj" id="cpfCnpj">
+            <label for="ie">Inscrição Estadual:
+                <input type="text" name="ie" id="ie">
+            </label>
+            <label for="cidade">Cidade:</label>
+                <input type="text" name="cidade" id="cidade">
+            <label for="estado">Estado:</label>
+                <input type="text" name="estado" id="estado">
+                <button type="submit" class="button-enviar">Cadastrar</button>
+            </form>
+        </div>
+        <div class="render-table">
+
         </div>
     </main>
     <footer>

@@ -3,46 +3,49 @@ main {
 }
 h3 {
     text-align: center;
+    padding-top: 10px;
 }
 input {
+    color: var(--cor-font);
     border: none;
+    border-bottom: 1px;
     border-radius: 4px;
-    background-color: aqua;
+    background-color: var(--cor-background-bordas);
 }
 button {
     border: none;
     border-radius: 6px;
-    background-color: aqua;
+    background-color: aqua;;
     width: 80px;
     cursor: pointer;
 }
-
 form {
     max-width: 80%;
     margin: auto;
     gap: .5em;
     padding: 1em;
-    
+    height: 100%;
+}
+.cliente.cadastrar{
+    height: 90%;
 }
 .container-cliente{
+    display: flex;
+    flex-direction: column;  
+    margin: auto;
+}
+.container-principal,.container-endereco{
     display: grid;
     grid-template-columns: 1fr 1fr;
-}
-
-
-.container-principal{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     margin: auto;
+    border: 1px solid var(--cor-background-bordas);
+    background-color: rgba(212, 243, 243, 0.712);
+    border-radius: 4px;
+    width: 80%;
+    height: 100%;
+    padding: 10px;
 }
 
-.container-endereco{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-}
 /* .container-cliente{
     display: flex;
     align-items: center;
