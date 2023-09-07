@@ -7,6 +7,7 @@
     <title>Bem vindo</title>
     <link rel="stylesheet" href="../../layout/footer.css">
     <link rel="stylesheet" href="../../layout/header.css">
+    <link rel="stylesheet" href="./cadastrarPedido.css">
     <script src="../../layout/home.js" defer></script>
     <script src="./cadastrarPedido.js" defer></script>
 </head>
@@ -52,7 +53,36 @@
     </nav>
     <main>
         <div class="conteudo">
-            
+            <h3>Cadastro de Pedido</h3>
+            <form action="">
+                <div>
+                    <label for="codCliente">Codigo Cliente:</label>
+                    <input type="number" name="codCliente" id="codCliente">
+                    <label for="cliente">Cliente:</label>
+                    <input type="text" name="cliente" id="cliente">
+                    <button type="submit"  onclick="pesquisarCliente(event)">Pesquisar</button>
+                    <select name="render" id="render">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <label for="tipo">Tipo:
+                    <select name="tipo" id="tipo">
+                        <option value="entrada">Entrada</option>
+                        <option value="saida" selected>Saída</option>
+                    </select>
+                </label>
+                <table class="container-produtos">
+                    <tr class="container-produto">
+                        <th><input type="number" name="codigo" id="codigo-" placeholder="Codigo do produto"></th>
+                        <th><input type="text" name="nome" id="nome" placeholder="Descrição do produto"></th>
+                        <th><input type="text" name="referencia" id="referencia" placeholder="Referência do produto"></th>
+                        <th><input type="number" name="quantidade" id="quantidade" placeholder="Quantidade"></th>
+                        <th><input type="number" name="valor" id="valor" placeholder="Valor unitario"></th>
+                        </th><th><button onclick="insertProduto(event)" type="submit">Ok</button><button type="button">Cancelar</button></th>
+                    </tr>
+
+                </table>
+            </form>
         </div>
     </main>
     <footer>
