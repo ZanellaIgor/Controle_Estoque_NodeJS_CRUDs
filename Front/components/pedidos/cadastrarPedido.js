@@ -1,53 +1,54 @@
 const baseUrl = "http://localhost:3002/clientes"
-const error = document.getElementById('error')
 
-async function pesquisarClientes(event) {
-    event.preventDefault();
-    error.innerHTML="";
-    const codCliente = document.getElementById('codCliente').value
-    const nomeCliente = document.getElementById('cliente').value
-    console.log(nomeCliente)
-    if(nomeCliente.length >= 3 ){
-        console.log(`${nomeCliente.length}`)
+const error = document.getElementById('error');
+//
+const searchInput = document.getElementById('cliente');
+const listaDeSugestoes = document.getElementById('sugestoes');
+let timeoutId;
+
+
+
+searchInput.addEventListener('input', function() {
+    clearTimeout(timeoutId); // Limpa o timeout anterior se houver
+    timeoutId =setTimeout(function() {
+        filterClientes();
+    }, 3000);
+});
+async function filterClientes() {
+    listaDeSugestoes.innerHTML = ''
+    error.innerHTML=''
+    const nomeCliente = searchInput.value;
+    if(nomeCliente && nomeCliente.length <= 3) return error.innerHTML='Favor digitar ao menos 3 caracteres'
     try {
         const response = await fetch(`${baseUrl}/search?nome=${nomeCliente}`);
         const clientes = await response.json();
         console.log("Dados da consulta:", clientes);
-        return procuraClientes(clientes)
+        sugestoesClientes(clientes);
     } catch (error) {
         console.error("Erro na consulta:");
-    } }
-    else {
-        error.innerHTML='Minimo 3 caracteres'
     }
-};
-    
-function procuraClientes(clientes){
-    console.log(clientes)
-    const selectCliente = document.getElementById('render');
-    limparOptions();
+}
+
+
+function sugestoesClientes(clientes) {
+    // Limpa a lista de sugestões
+    listaDeSugestoes.innerHTML = '';
+
+    // Cria e exibe as sugestões
     clientes.forEach(cliente => {
-        const option = document.createElement('option')
-        option.value=cliente.id
-        option.innerText=cliente.nome
-        selectCliente.appendChild(option)
-        
+        const li = document.createElement('li');
+        li.textContent = cliente.nome;
+        li.dataset.idCliente= cliente.id;
+        listaDeSugestoes.appendChild(li);
+
+        li.addEventListener('click', function() {
+            // Quando o usuário clica em uma sugestão, preenchemos o campo de pesquisa com a sugestão
+            searchInput.value = cliente.nome;
+            searchInput.dataset.id= cliente.id;
+            // Limpa a lista de sugestões
+            listaDeSugestoes.innerHTML = '';
+        });
     });
-    selectCliente.addEventListener("change",clienteSelecionado)
-}
-
-function limparOptions(){
-    const selectCliente = document.getElementById('render');
-    selectCliente.innerHTML=''
-}
-
-function clienteSelecionado(){
-    const selectCliente = document.getElementById('render');
-    const selectedValue = selectCliente.value;
-    const selectedIndex = selectCliente.selectedIndex;
-    const selectedOption = selectCliente.options[selectedIndex];
-    const selectedText = selectedOption.textContent;
-    console.log(selectedValue,selectedText)
 }
 
 
