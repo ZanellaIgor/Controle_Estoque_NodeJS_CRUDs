@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const routerProdutos = express.Router();
 
 const produtos = [
     { "id": 1, "nome": "celula", "referencia": "Referencia", "estoque": 5, "unidade": "UN" },
@@ -9,12 +9,12 @@ const produtos = [
     { "id": 5, "nome": "Produto2", "referencia": "184-f", "estoque": 16, "unidade": "UND" },
 ];
 
-router.get('/', function(request, response) {
+routerProdutos.get('/', function(request, response) {
     console.log('Estou aqui');
     response.json(produtos);
 });
 
-router.get('/:id', (req, res) => {
+routerProdutos.get('/:id', (req, res) => {
     const produto = produtos.find(p => p.id === parseInt(req.params.id));
     if (produto) {
         res.json(produto);
@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
     }
 });
 
-router.post('/', (req, res) => {
+routerProdutos.post('/', (req, res) => {
     const { nome, valor, referencia, estoque, imagem } = req.body;
 
     const novoProduto = {
@@ -42,4 +42,4 @@ router.post('/', (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = routerProdutos;

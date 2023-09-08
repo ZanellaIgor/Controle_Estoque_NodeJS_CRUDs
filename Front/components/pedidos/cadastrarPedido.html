@@ -60,9 +60,10 @@
                     <input type="number" name="codCliente" id="codCliente">
                     <label for="cliente">Cliente:</label>
                     <input type="text" name="cliente" id="cliente">
-                    <button type="submit"  onclick="pesquisarCliente(event)">Pesquisar</button>
+                    <div id="error"></div>
+                    <button type="submit"  onclick="pesquisarClientes(event)">Pesquisar</button>
                     <select name="render" id="render">
-                        <option value=""></option>
+                        <option value="" disabled selected>Selecione o Cliente</option>
                     </select>
                 </div>
                 <label for="tipo">Tipo:
