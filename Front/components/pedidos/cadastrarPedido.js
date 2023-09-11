@@ -90,16 +90,16 @@ function sugestoesProdutos(produtos){
 function insertProduto(event){
     event.preventDefault();
     const produtos = document.querySelector('.container-produtos');
-    const produto = document.createElement('tr');
+    const produto = document.createElement('div');
     produto.classList.add('container-produto');
     produto.innerHTML = (`
-    <td><input type="number" name="codigo" id="codigo-" value="${searchInputProdutos.dataset.id}"></td>
-    <td><input type="text" name="nome" id="nome" value="${searchInputProdutos.value}"></td>
-    <td><input type="text" name="referencia" id="referencia" value="${searchInputProdutos.dataset.referencia}"></td>
-    <td><input type="number" name="quantidade" id="quantidade" value="${inputQuantidade.value}"></td>
-    <td><input type="number" name="valor" id="valor" value="${inputValorUnit.value}"></td>
-    <td><input type="number" name="valorTotal" id="valorTotal" value="${ inputValorUnit.value * inputQuantidade.value}" readonly></td>
-    <td><button>Excluir</button></td>
+    <input type="number" name="codigo" id="codigo-" value="${searchInputProdutos.dataset.id}">
+    <input type="text" name="nome" id="nome" value="${searchInputProdutos.value}">
+    <input type="text" name="referencia" id="referencia" value="${searchInputProdutos.dataset.referencia}">
+    <input type="number" name="quantidade" id="quantidade" value="${inputQuantidade.value}">
+    <input type="number" name="valor" id="valor" value="${inputValorUnit.value}">
+    <input type="number" name="valorTotal" id="valorTotal" value="${ inputValorUnit.value * inputQuantidade.value}" readonly>
+    <button>Excluir</button>
     `)
     produtos.appendChild(produto)
 };

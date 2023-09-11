@@ -67,22 +67,22 @@
                         <option value="saida" selected>Saída</option>
                     </select>
                 </label>
-                <table class="container-produtos">
-                    <tr class="container-produto">
-                        <th><label for="produto">Nome:</label><input list="sugestoesProdutos" type="text" name="produto" id="produto"
+                <div class="container-produtos">
+                    <div class="container-produto">
+                        <label for="produto">Nome:</label><input list="sugestoesProdutos" type="text" name="produto" id="produto"
                                 placeholder="Codigo, Descrição ou Referência do produto">
-                        </th>
-                        <th><label for="quantidade">Quantidade</label><input type="number" name="quantidade" id="quantidade"
-                                placeholder="Quantidade"></th>
-                        <th><label for="valorUnit">Valor Unitário</label><input type="number" name="valorUnit" id="valorUnit"
-                                placeholder="Valor unitario"></th>
-                        </th>
-                        <th><button onclick="insertProduto(event)" type="submit">Adicionar</button><button
-                                type="button">Cancelar</button></th>
-                    </tr>
+                        
+                        <label for="quantidade">Quantidade</label><input type="number" name="quantidade" id="quantidade"
+                                placeholder="Quantidade">
+                        <label for="valorUnit">Valor Unitário</label><input type="number" name="valorUnit" id="valorUnit"
+                                placeholder="Valor unitario">
+                        
+                        <button onclick="insertProduto(event)" type="submit">Adicionar</button><button
+                                type="button">Cancelar</button>
+                    </div>
                     <ul id="sugestoesProdutos"></ul>
                     <div id="error-produto"></div>
-                </table>
+                </div>
             </form>
         </div>
     </main>
