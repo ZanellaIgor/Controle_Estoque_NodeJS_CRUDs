@@ -1,29 +1,32 @@
 const express = require('express');
 const routerProdutos = express.Router();
 
-const produtos = [
-    { "id": 1, "nome": "celula", "referencia": "Referencia", "estoque": 5, "unidade": "UN" },
-    { "id": 2, "nome": "Celular", "referencia": "Referencia2", "estoque": 10, "unidade": "CD" },
-    { "id": 3, "nome": "Produto", "referencia": "Referencia3", "estoque": 10, "unidade": "CX" },
-    { "id": 4, "nome": "Camera", "referencia": "105-fr", "estoque": 25, "unidade": "UN" },
-    { "id": 5, "nome": "Produto2", "referencia": "184-f", "estoque": 16, "unidade": "UND" },
+const dbProdutos = [
+    { "id": 1, "nome": "celula", "referencia": "Referencia", "estoque": 5, "valorUnit":5.5 },
+    { "id": 2, "nome": "Celular", "referencia": "Referencia2", "estoque": 10, "valorUnit": 1200 },
+    { "id": 3, "nome": "Produto", "referencia": "Referencia3", "estoque": 10, "valorUnit": 1300 },
+    { "id": 4, "nome": "Camera", "referencia": "105-fr", "estoque": 25, "valorUnit": 8500 },
+    { "id": 5, "nome": "Produto2", "referencia": "184-f", "estoque": 16, "valorUnit": 6589.45 },
 ];
 
 routerProdutos.get('/', function(request, response) {
     console.log('Estou aqui');
-    response.json(produtos);
+    response.json(dbProdutos);
 });
 
-routerProdutos.get('/:id', (req, res) => {
-    const produto = produtos.find(p => p.id === parseInt(req.params.id));
-    if (produto) {
-        res.json(produto);
-    } else {
-        res.status(404).json({ message: 'Produto não encontrado' });
-    }
+
+
+routerProdutos.get('/search', (req,res)=>{
+    console.log(`${req.query.produto}`);
+    const searchProduto = dbProdutos.filter(produto => produto.nome.toLowerCase().includes(req.query.produto.toLowerCase()));
+    res.json(searchProduto);
+    console.log('searchProduto');
 });
+
+
 
 routerProdutos.post('/', (req, res) => {
+
     const { nome, valor, referencia, estoque, imagem } = req.body;
 
     const novoProduto = {

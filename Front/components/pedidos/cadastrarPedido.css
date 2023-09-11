@@ -9,6 +9,7 @@ form {
     display: flex;
     flex-direction: column;
     max-width: 80%;
+    max-height: 100%;
     margin: auto;
     gap: .5em;
     padding: 1em;
@@ -24,4 +25,9 @@ button {
     background-color: aqua;
     width: 80px;
     cursor: pointer;
+}
+table{
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
 }
