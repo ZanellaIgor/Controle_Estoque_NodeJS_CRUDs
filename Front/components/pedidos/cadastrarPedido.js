@@ -1,11 +1,11 @@
-const baseUrl = "http://localhost:3002/"
+const baseUrl = "http://localhost:3002/";
 
 const error = document.getElementById('error');
 const searchInputClientes = document.getElementById('cliente');
 const listaDeSugestoes = document.getElementById('sugestoes');
 const listaDeSugestoesProdutos = document.getElementById('sugestoesProdutos');
-const inputQuantidade = document.getElementById('quantidade')
-const inputValorUnit = document.getElementById('valorUnit')
+const inputQuantidade = document.getElementById('quantidade');
+const inputValorUnit = document.getElementById('valorUnit');
 let timeoutId;
 
 
@@ -18,8 +18,9 @@ searchInputClientes.addEventListener('input', function() {
 
 async function filterClientes() {
     error.innerHTML=''
+    listaDeSugestoes.innerHTML=''
     const nomeCliente = searchInputClientes.value;
-    if(nomeCliente && nomeCliente.length <= 3) return error.innerHTML='Favor digitar ao menos 3 caracteres'
+    if(nomeCliente && nomeCliente.length <= 3) return error.innerHTML='Favor digitar ao menos 3 caracteres';
     try {
         const response = await fetch(`${baseUrl}clientes/search?nome=${nomeCliente}`);
         const clientes = await response.json();
@@ -32,7 +33,6 @@ async function filterClientes() {
 
 
 function sugestoesClientes(clientes) {
-    // Cria e exibe as sugestões
     clientes.forEach(cliente => {
         const li = document.createElement('li');
         li.textContent = cliente.nome;
@@ -41,6 +41,7 @@ function sugestoesClientes(clientes) {
         li.addEventListener('click', function() {
             searchInputClientes.value = cliente.nome;
             searchInputClientes.dataset.id= cliente.id;
+            listaDeSugestoes.innerHTML=''
         });
     });
 }
@@ -57,20 +58,17 @@ searchInputProdutos.addEventListener('input',()=>{
 async function filtrarProdutos(){
     listaDeSugestoesProdutos.innerHTML = ''
     const produtoInput = searchInputProdutos.value;
-    console.log(produtoInput)
     try {
       const response = await fetch(`${baseUrl}produtos/search?produto=${produtoInput}`)  
       const produtos = await response.json();
-      sugestoesProdutos(produtos)
+      sugestoesProdutos(produtos);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 
 function sugestoesProdutos(produtos){
     listaDeSugestoesProdutos.innerHTML = '';
-    console.log(produtos)
-    // Cria e exibe as sugestões
     produtos.forEach(produto => {
         const li = document.createElement('li');
         li.textContent = produto.nome;
@@ -82,6 +80,7 @@ function sugestoesProdutos(produtos){
             searchInputProdutos.value = produto.nome;
             searchInputProdutos.dataset.id= produto.id;
             searchInputProdutos.dataset.referencia= produto.referencia;
+            listaDeSugestoesProdutos.innerHTML=''
             inputQuantidade.focus();
         });
     });
@@ -100,7 +99,25 @@ function insertProduto(event){
     <input type="number" name="valor" id="valor" value="${inputValorUnit.value}">
     <input type="number" name="valorTotal" id="valorTotal" value="${ inputValorUnit.value * inputQuantidade.value}" readonly>
     <button>Excluir</button>
-    `)
-    produtos.appendChild(produto)
+    `);
+    produtos.appendChild(produto);
+    resetInput();
 };
 
+function resetInput(){
+    searchInputProdutos.value='';
+    inputQuantidade.value='';
+    inputValorUnit.value='';
+}
+
+const buttonCadastrar = document.getElementById('buttonCadastrar')
+buttonCadastrar.addEventListener('click', function(){
+    coletarInputs();
+})
+
+function coletarInputs(){
+    const inputsProdutos = document.querySelectorAll('.container-produto');
+    inputsProdutos.forEach(inputProduto => {
+        console.log(inputProduto.childNodes);
+    })
+}
