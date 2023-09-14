@@ -14,7 +14,9 @@
 <body>
     <header>
         <h1>Novo Pedido:</h1>
-        <a href="../../layout/home.html"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4 21V9l8-6l8 6v12h-6v-7h-4v7H4Z"/></svg></a>
+        <a href="../../layout/home.html"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M4 21V9l8-6l8 6v12h-6v-7h-4v7H4Z" />
+            </svg></a>
     </header>
     <nav>
         <ul class="container-menu">
@@ -55,35 +57,51 @@
         <div class="conteudo">
             <h3>Cadastro de Pedido</h3>
             <form action="">
-                <div>
-                    <label for="cliente">Cliente:</label>
-                    <input type="text" name="cliente" id="cliente" list="sugestoes">
-                    <ul id="sugestoes"></ul>
-                    <div id="error"></div>
-                </div>
-                <label for="tipo">Tipo:
-                    <select name="tipo" id="tipo">
-                        <option value="entrada">Entrada</option>
-                        <option value="saida" selected>Saída</option>
-                    </select>
-                </label>
-                <button id="buttonCadastrar" type="button">Cadastrar</button>
-                <div class="container-produtos">
-                    <div class="container-produto">
-                        <label for="produto">Nome:</label><input list="sugestoesProdutos" type="text" name="produto" id="produto"
-                                placeholder="Codigo, Descrição ou Referência do produto">
-                        
-                        <label for="quantidade">Quantidade</label><input type="number" name="quantidade" id="quantidade"
-                                placeholder="Quantidade">
-                        <label for="valorUnit">Valor Unitário</label><input type="number" name="valorUnit" id="valorUnit"
-                                placeholder="Valor unitario">
-                        
-                        <button onclick="insertProduto(event)" type="submit">Adicionar</button><button
-                                type="button">Cancelar</button>
+                <div class="container-cliente">
+                    <div>
+                        <label for="cliente">Cliente:</label>
+                        <input type="text" name="cliente" id="cliente" list="sugestoes">
+                        <ul id="sugestoes"></ul>
+                        <div id="error"></div>
                     </div>
-                    <ul id="sugestoesProdutos"></ul>
-                    <div id="error-produto"></div>
+                    <label for="tipo">Tipo:
+                        <select name="tipo" id="tipo">
+                            <option value="entrada">Entrada</option>
+                            <option value="saida" selected>Saída</option>
+                        </select>
+                    </label>
                 </div>
+                <button id="buttonCadastrar" type="button">Cadastrar</button>
+                <div class="container-inputs">
+                    <div class="container-input-produto">
+                        <label for="produto">Nome:<input list="sugestoesProdutos" type="text" name="produto"
+                            id="produto" placeholder="Codigo, Descrição ou Referência do produto">
+                            <ul id="sugestoesProdutos"></ul></label>
+                        <label for="quantidade">Quantidade<input type="number" name="quantidade" id="quantidade"
+                            placeholder="Quantidade"></label>
+                        <label for="valorUnit">Valor Unitário<input type="number" name="valorUnit"
+                            id="valorUnit" placeholder="Valor unitario"></label>
+                        <button onclick="insertProduto(event)" type="submit">Adicionar</button><button
+                            type="button">Cancelar</button>
+                    </div>
+                    <div id="errorProduto"></div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Descrição</th>
+                            <th>Referência</th>
+                            <th>Quantidade</th>
+                            <th>Valor Unitário</th>
+                            <th>Valor Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="container-produtos">
+
+                    </tbody>
+                </table>
             </form>
         </div>
     </main>

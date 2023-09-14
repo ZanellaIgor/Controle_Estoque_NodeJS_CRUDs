@@ -1,6 +1,7 @@
 const baseUrl = "http://localhost:3002/";
 
 const error = document.getElementById('error');
+const errorProduto =document.getElementById('errorProduto');
 const searchInputClientes = document.getElementById('cliente');
 const listaDeSugestoes = document.getElementById('sugestoes');
 const listaDeSugestoesProdutos = document.getElementById('sugestoesProdutos');
@@ -88,17 +89,20 @@ function sugestoesProdutos(produtos){
 
 function insertProduto(event){
     event.preventDefault();
+    if (searchInputProdutos.dataset.id == null || inputValorUnit.value == (null || 0) || inputQuantidade.value == (null || 0) ){
+        return errorProduto.innerHTML='Verifique os valores informados'
+    }
     const produtos = document.querySelector('.container-produtos');
-    const produto = document.createElement('div');
+    const produto = document.createElement('tr');
     produto.classList.add('container-produto');
     produto.innerHTML = (`
-    <input type="number" name="codigo" id="codigo-" value="${searchInputProdutos.dataset.id}">
-    <input type="text" name="nome" id="nome" value="${searchInputProdutos.value}">
-    <input type="text" name="referencia" id="referencia" value="${searchInputProdutos.dataset.referencia}">
-    <input type="number" name="quantidade" id="quantidade" value="${inputQuantidade.value}">
-    <input type="number" name="valor" id="valor" value="${inputValorUnit.value}">
-    <input type="number" name="valorTotal" id="valorTotal" value="${ inputValorUnit.value * inputQuantidade.value}" readonly>
-    <button>Excluir</button>
+    <td>${searchInputProdutos.dataset.id}</td>
+    <td>${searchInputProdutos.value}</td>
+    <td>${searchInputProdutos.dataset.referencia}</td>
+    <td>${inputQuantidade.value}</td>
+    <td>${inputValorUnit.value}</td>
+    <td>${ inputValorUnit.value * inputQuantidade.value}</td>
+    <td><button>Excluir</button></td>
     `);
     produtos.appendChild(produto);
     resetInput();
