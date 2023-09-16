@@ -70,6 +70,7 @@ async function filtrarProdutos(){
 
 function sugestoesProdutos(produtos){
     listaDeSugestoesProdutos.innerHTML = '';
+    if (errorProduto.innerHTML ) errorProduto.innerHTML='';
     produtos.forEach(produto => {
         const li = document.createElement('li');
         li.textContent = produto.nome;
@@ -96,12 +97,12 @@ function insertProduto(event){
     const produto = document.createElement('tr');
     produto.classList.add('container-produto');
     produto.innerHTML = (`
-    <td>${searchInputProdutos.dataset.id}</td>
-    <td>${searchInputProdutos.value}</td>
-    <td>${searchInputProdutos.dataset.referencia}</td>
-    <td>${inputQuantidade.value}</td>
-    <td>${inputValorUnit.value}</td>
-    <td>${ inputValorUnit.value * inputQuantidade.value}</td>
+    <td class="codigo" >${searchInputProdutos.dataset.id}</td>
+    <td class="descricao" >${searchInputProdutos.value}</td>
+    <td class="referencia" >${searchInputProdutos.dataset.referencia}</td>
+    <td class="quantidade" >${inputQuantidade.value}</td>
+    <td class="valorUnit" >${inputValorUnit.value}</td>
+    <td class="valorTotal" >${ inputValorUnit.value * inputQuantidade.value}</td>
     <td><button>Excluir</button></td>
     `);
     produtos.appendChild(produto);
@@ -116,12 +117,25 @@ function resetInput(){
 
 const buttonCadastrar = document.getElementById('buttonCadastrar')
 buttonCadastrar.addEventListener('click', function(){
-    coletarInputs();
+    buscarCampos();
 })
 
-function coletarInputs(){
-    const inputsProdutos = document.querySelectorAll('.container-produto');
-    inputsProdutos.forEach(inputProduto => {
-        console.log(inputProduto.childNodes);
-    })
+
+function buscarCampos() {
+    const tdProdutos = Array.from(document.querySelectorAll('.container-produto'));
+    const listaDeCompras = [];
+    tdProdutos.forEach((linha) => {
+        const celulas = linha.querySelectorAll('td');
+        const produto = {
+            codigo: celulas[0].textContent,
+            nome: celulas[1].textContent,
+            referencia: celulas[2].textContent,
+            quantidade: celulas[3].textContent,
+            valorUnitario: celulas[4].textContent,
+            valorTotal: celulas[5].textContent
+        };
+        listaDeCompras.push(produto);
+    });
+    console.log(listaDeCompras);
 }
+
