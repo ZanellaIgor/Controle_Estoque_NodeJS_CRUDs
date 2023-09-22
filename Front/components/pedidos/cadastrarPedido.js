@@ -7,8 +7,13 @@ const listaDeSugestoes = document.getElementById('sugestoes');
 const listaDeSugestoesProdutos = document.getElementById('sugestoesProdutos');
 const inputQuantidade = document.getElementById('quantidade');
 const inputValorUnit = document.getElementById('valorUnit');
+const inputValorTotal = document.getElementById('valorTotal');
 let timeoutId;
 let idSeq = 1;
+let valorPedido=0;
+
+const cliente = document.getElementById('cliente');
+const tipoPedido = document.getElementById('tipo');
 
 searchInputClientes.addEventListener('input', function() {
     clearTimeout(timeoutId);
@@ -42,6 +47,8 @@ function sugestoesClientes(clientes) {
         li.addEventListener('click', function() {
             searchInputClientes.value = cliente.nome;
             searchInputClientes.dataset.id= cliente.id;
+            searchInputClientes.dataset.cidade=cliente.cidade;
+            searchInputClientes.dataset.estado=cliente.estado;
             listaDeSugestoes.innerHTML=''
         });
     });
@@ -109,6 +116,7 @@ function insertProduto(event){
     idSeq++;
     console.log(idSeq)
     produtos.appendChild(produto);
+    valorTotalPedido()
     resetInput();
 };
 
@@ -123,15 +131,25 @@ function resetInput(){
     inputValorUnit.value='';
 }
 
+function valorTotalPedido(){
+    const tdProdutos = Array.from(document.querySelectorAll('.container-produto'));
+    tdProdutos.forEach(linha => {
+        const celulas = linha.querySelectorAll('td');
+        valorPedido += parseFloat(celulas[5].textContent);
+    })
+    inputValorTotal.value=valorPedido;
+}
+
 const buttonCadastrar = document.getElementById('buttonCadastrar')
-buttonCadastrar.addEventListener('click', function(){
-    buscarCampos();
+buttonCadastrar.addEventListener('click', async function(){
+    const listaDeProdutos = buscarDadosProdutos();
+    const dadosPedido = buscarDadosPedido();
+    await cadastrarPedido(listaDeProdutos,dadosPedido);
 })
 
-
-function buscarCampos() {
+function buscarDadosProdutos() {
     const tdProdutos = Array.from(document.querySelectorAll('.container-produto'));
-    const listaDeCompras = [];
+    const listaDeProdutos = [];
     tdProdutos.forEach((linha) => {
         const celulas = linha.querySelectorAll('td');
         const produto = {
@@ -142,8 +160,34 @@ function buscarCampos() {
             valorUnitario: celulas[4].textContent,
             valorTotal: celulas[5].textContent
         };
-        listaDeCompras.push(produto);
+        listaDeProdutos.push(produto);
     });
-    console.log(listaDeCompras);
+    console.log(listaDeProdutos);
+    return listaDeProdutos;
 }
 
+function buscarDadosPedido(){
+    const dadosPedido = {
+        idPessoa: searchInputClientes.dataset.id,
+        cliente: searchInputClientes.value,
+        cidade:searchInputClientes.dataset.cidade,
+        estado:searchInputClientes.dataset.estado,
+        valorPedido,
+    }
+    return dadosPedido
+}
+
+async function cadastrarPedido(listaDeProdutos,dadosPedido){
+    console.log(listaDeProdutos)
+    try {
+        const cadastro = await fetch(`${baseUrl}pedidos`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify({listaDeProdutos, dadosPedido})
+        });
+    } catch (error) {
+        console.error('Erro:');
+    }
+}

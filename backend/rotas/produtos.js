@@ -35,7 +35,7 @@ routerProdutos.post('/', (req, res) => {
     const { nome, valor, referencia, estoque, imagem } = req.body;
 
     const novoProduto = {
-        id: produtos.length + 1, // Corrigido para usar produtos
+        id: produtos.length + 1,
         nome,
         valor,
         referencia,
