@@ -8,7 +8,7 @@ const listaDeSugestoesProdutos = document.getElementById('sugestoesProdutos');
 const inputQuantidade = document.getElementById('quantidade');
 const inputValorUnit = document.getElementById('valorUnit');
 let timeoutId;
-
+let idSeq = 1;
 
 searchInputClientes.addEventListener('input', function() {
     clearTimeout(timeoutId);
@@ -96,18 +96,26 @@ function insertProduto(event){
     const produtos = document.querySelector('.container-produtos');
     const produto = document.createElement('tr');
     produto.classList.add('container-produto');
+    produto.dataset.seq=idSeq;
     produto.innerHTML = (`
-    <td class="codigo" >${searchInputProdutos.dataset.id}</td>
+    <td class="codigo" data-seq="${idSeq}">${searchInputProdutos.dataset.id}</td>
     <td class="descricao" >${searchInputProdutos.value}</td>
     <td class="referencia" >${searchInputProdutos.dataset.referencia}</td>
     <td class="quantidade" >${inputQuantidade.value}</td>
     <td class="valorUnit" >${inputValorUnit.value}</td>
     <td class="valorTotal" >${ inputValorUnit.value * inputQuantidade.value}</td>
-    <td><button>Excluir</button></td>
+    <td><button type="button" onclick="removerProduto(${idSeq})">Excluir</button></td>
     `);
+    idSeq++;
+    console.log(idSeq)
     produtos.appendChild(produto);
     resetInput();
 };
+
+function removerProduto(id){
+   const item = document.querySelector(`.container-produto[data-seq="${id}"]`)
+   item.remove();
+}
 
 function resetInput(){
     searchInputProdutos.value='';

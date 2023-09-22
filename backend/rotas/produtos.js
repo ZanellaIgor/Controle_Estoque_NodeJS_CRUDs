@@ -18,12 +18,17 @@ routerProdutos.get('/', function(request, response) {
 
 routerProdutos.get('/search', (req,res)=>{
     console.log(`${req.query.produto}`);
-    const searchProduto = dbProdutos.filter(produto => produto.nome.toLowerCase().includes(req.query.produto.toLowerCase()));
+    const filtro = req.query.produto
+    const searchProduto = filterProdutos(filtro);
     res.json(searchProduto);
     console.log('searchProduto');
 });
 
-
+function filterProdutos(filtro) {
+    return dbProdutos.filter((produto) => {
+      return produto.nome.toLowerCase().includes(filtro.toLowerCase());
+    });
+  }
 
 routerProdutos.post('/', (req, res) => {
 
