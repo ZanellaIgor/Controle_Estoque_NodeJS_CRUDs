@@ -8,10 +8,10 @@ const listaDeSugestoesProdutos = document.getElementById('sugestoesProdutos');
 const inputQuantidade = document.getElementById('quantidade');
 const inputValorUnit = document.getElementById('valorUnit');
 const inputValorTotal = document.getElementById('valorTotal');
+const selectTipoPedido = document.getElementById('tipo').value;
 let timeoutId;
 let idSeq = 1;
 let valorPedido=0;
-
 const cliente = document.getElementById('cliente');
 const tipoPedido = document.getElementById('tipo');
 
@@ -172,6 +172,7 @@ function buscarDadosPedido(){
         cliente: searchInputClientes.value,
         cidade:searchInputClientes.dataset.cidade,
         estado:searchInputClientes.dataset.estado,
+        tipo:selectTipoPedido,
         valorPedido,
     }
     return dadosPedido
