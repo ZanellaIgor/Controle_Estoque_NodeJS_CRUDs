@@ -1,6 +1,6 @@
 const express =require('express');
 const routerDocumentos = express.Router();
-const {pool}= require('./db');
+const {pool}= require('../conexao/db');
 
 const dbPedidos = [
     {"id":1, "idPessoa":5, "tipo":"S", "cliente":"Roberval", "valorTotal":2530.55},
@@ -15,49 +15,33 @@ routerDocumentos.get('/', (req, res) =>{
 
 routerDocumentos.post('/', async (req, res) =>{
     //const {idPessoa, cliente,tipo, valorTotal} = req.body;
-    const {cliente, valorTotal} = req.body
-
+    const {listaDeProdutos, dadosPedido} = req.body
+    console.log(req.body)
     try {
         const insertQuery = `
-        INSERT INTO documentos (nomeCliente, valorTotal)
+        INSERT INTO documentos (nomecliente, valortotal)
         VALUES ($1, $2)
         RETURNING id;`;
 
-        const values = [cliente, valorTotal];
+        const values = [dadosPedido.idPessoa, dadosPedido.valorPedido];
+
 
         const { rows } = await pool.query(insertQuery, values);
-
+        console.log('aqui')
         const novoPedidoId = rows[0].id;
 
         res.status(201).json({
             statusCode: 201,
-            message: "Pedido criado com sucesso!",
+            message: "Pedido criado com Sucesso!",
             novoPedidoId,
         });
     } catch (error) {
-        console.error('Erro ao inserir pedido no banco de dados:', error);
+        console.error('Erro ao cadastrar o pedido no banco de dados:', error);
         res.status(500).json({
             statusCode: 500,
             message: "Erro ao criar o pedido.",
         });
     }
 });
-    // const novoPedido = {
-    //     id: dbPedidos.length +1,
-    //     idPessoa,
-    //     cliente,
-    //     valorTotal,
-    //     tipo,
-    //     dataEmissao: new Date().getDate(),
-    //     horaEmissao: new Date().getHours()
-    // }
-
-    // res.status(201).json({
-    //     statusCode:201,
-    //     message: "Pedido criado com sucesso!"
-    // })
-
-
-
 
 module.exports = routerDocumentos;

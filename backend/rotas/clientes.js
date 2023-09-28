@@ -17,7 +17,6 @@ routerClientes.get('/search', (req,res)=>{
     console.log(`${req.query.nome}`);
     const searchCliente = dbClientes.filter(cliente => cliente.nome.toLowerCase().includes(req.query.nome.toLowerCase()));
     res.json(searchCliente);
-    console.log('searchCliente');
 });
 
 routerClientes.post('/', (req, res) => {
