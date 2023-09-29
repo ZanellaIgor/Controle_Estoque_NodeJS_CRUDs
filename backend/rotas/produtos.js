@@ -10,14 +10,28 @@ const {pool}= require('../conexao/db');
 //     { "id": 5, "nome": "Produto2", "referencia": "184-f", "estoque": 16, "valorUnit": 6589.45 },
 // ];
 
-routerProdutos.get('/', async function(req, res) {
-    console.log('Estou aqui');
+routerProdutos.get('/', async function (req, res) {
     try {
-        
+        const query = 'SELECT * FROM PRODUTOS';
+        const resultadoBanco = await pool.query(query);
+        if (resultadoBanco.rows.length === 0) {
+            return res.status(404).json({
+                statusCode: 404,
+                message: 'Nenhum produto encontrado.',
+            });
+        }
+        res.status(200).json({
+            statusCode: 200,
+            message: 'Lista de Produtos',
+            data: resultadoBanco.rows,
+        });
     } catch (error) {
-        
+        console.error('Erro ao realizar a consulta:', error);
+        res.status(500).json({
+            statusCode: 500,
+            message: 'Erro ao realizar a consulta.',
+        });
     }
-    res.json();
 });
 
 routerProdutos.post('/', async function(req, res) {
@@ -47,11 +61,41 @@ routerProdutos.post('/', async function(req, res) {
 
 });
 
-routerProdutos.get('/search', (req,res)=>{
-    console.log(`${req.query.produto}`);
-    const filtro = req.query.produto
-    const searchProduto = filterProdutos(filtro);
-    res.json(searchProduto);
+// routerProdutos.get('/search', (req,res)=>{
+//     console.log(`${req.query.codigo}`);
+//     const filtro = req.query.codigo
+//     const searchProduto = filterProdutos(filtro);
+//     res.json(searchProduto);
+// });
+
+routerProdutos.get('/search', async (req, res) => {
+    const { codigo, nome, referencia } = req.query;
+    console.log('Parâmetros:', { codigo, nome, referencia });
+    const query = `SELECT * FROM produtos
+    WHERE
+      id = $1,
+      AND (nome LIKE '%' || $2, || '%')
+      AND (referencia LIKE '%' || $3, || '%')
+  `;
+ 
+    console.log('Consulta SQL:', query);
+    try {
+        const result = await pool.query(query, [codigo, nome, referencia]);
+        console.log(result)
+        // Envie os resultados como resposta
+
+        res.status(200).json({
+            statusCode: 200,
+            message: "Produtos filtrados com sucesso",
+            data: result.rows,
+        });
+    } catch (error) {
+        console.error('Erro ao consultar o banco de dados:', error);
+        res.status(500).json({
+            statusCode: 500,
+            message: "Erro ao realizar a consulta no banco de dados",
+        });
+    }
 });
 
 function filterProdutos(filtro) {

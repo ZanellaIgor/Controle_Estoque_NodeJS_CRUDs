@@ -25,13 +25,17 @@ function inputValores() {
 
 async function cadastrarPedido(novoProduto) {
     try {
-        const cadastro = await fetch(`${baseUrl}produtos`, {
+        const request = await fetch(`${baseUrl}produtos`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8'
             },
             body: JSON.stringify(novoProduto)
         });
+        const response = await request.json();
+        console.log(response);
+        alert(`${response.message} com codigo ${response.novoProdutoId}`);
+        location.reload(true);
     } catch (error) {
         console.error('Erro:');
     }
