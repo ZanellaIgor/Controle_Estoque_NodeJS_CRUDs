@@ -59,7 +59,6 @@ routerProdutos.post('/', async function(req, res) {
             message: "Erro ao criar o produto.",
         });
     }
-
 });
 
 routerProdutos.delete('/:id', async (req, res) =>{
@@ -88,24 +87,29 @@ routerProdutos.delete('/:id', async (req, res) =>{
 // });
 
 routerProdutos.get('/search', async (req, res) => {
-    const { codigo, nome, referencia } = req.query;
+    const { codigo, nome = '', referencia = '' } = req.query;
     console.log('Parâmetros:', { codigo, nome, referencia });
-    const query = `SELECT * FROM produtos
-    WHERE
-      id = $1,
-      AND (nome LIKE '%' || $2, || '%')
-      AND (referencia LIKE '%' || $3, || '%')
-  `;
- 
+    let query = `SELECT * FROM produtos WHERE`;
+    let values = []
+    
+    if (codigo == '') {
+        query += `(nome LIKE '%' || $1 || '%') AND (referencia LIKE '%' || $2 || '%')`;
+        values = [nome, referencia];
+    }
+    else {
+        query += `(id = $1::int) AND (nome LIKE '%' || $2 || '%') AND (referencia LIKE '%' || $3 || '%')`;
+        values = [codigo, nome, referencia];
+    }
     console.log('Consulta SQL:', query);
     try {
-        const result = await pool.query(query, [codigo, nome, referencia]);
+        const result = await pool.query(query, values);
         console.log(result)
         // Envie os resultados como resposta
 
         res.status(200).json({
             statusCode: 200,
-            message: "Produtos Deletado com Sucesso"
+            message: "Produtos Deletado com Sucesso",
+            data: result.rows
         });
 
     } catch (error) {

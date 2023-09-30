@@ -8,17 +8,20 @@ function insertTh(texto) {
     return table.appendChild(th);
 }
 
-const th1 = insertTh('Código');
-const th2 = insertTh('Nome');
-const th3 = insertTh('Valor');
-const th4 = insertTh('Refêrencia');
-const th5 = insertTh('Estoque');
 
+function criarCabecalho() {
+    const th1 = insertTh('Código');
+    const th2 = insertTh('Nome');
+    const th3 = insertTh('Valor');
+    const th4 = insertTh('Refêrencia');
+    const th5 = insertTh('Estoque');
+}
 function insertText(texto) {
     const td = document.createElement("td");
     td.innerHTML = texto
     return td  
 }
+
 async function consultarProdutos(url) {
     const requisicao = url ? url : `${baseUrl}produtos`
     console.log(requisicao)
@@ -27,6 +30,7 @@ async function consultarProdutos(url) {
         const response = await request.json();
         const jsonProutos = response.data;
         table.innerText='';
+        criarCabecalho();
         renderizarProdutos(jsonProutos);
         console.log(response);
     } catch (error) {
@@ -42,7 +46,6 @@ function renderizarProdutos(jsonProutos){
         const referencia = insertText(produto.referencia);
         const estoque = insertText(produto.estoque);
         const tr = document.createElement('tr');
-        const tbody =document.createElement('tbody');
         const buttonExcluir = insertText(`
         <button class="button-limpar" onclick="deletarProduto(${produto.id})">Excluir<button/> 
         <button class="button-editar"><a href="./editarProduto.html">Editar<a><button/>`)
@@ -58,8 +61,6 @@ function renderizarProdutos(jsonProutos){
     });
     render.appendChild(table);
 };
-
-
 
 
 const filtrar = document.querySelector('.button-enviar')
