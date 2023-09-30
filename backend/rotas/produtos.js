@@ -14,6 +14,7 @@ routerProdutos.get('/', async function (req, res) {
     try {
         const query = 'SELECT * FROM PRODUTOS';
         const resultadoBanco = await pool.query(query);
+       
         if (resultadoBanco.rows.length === 0) {
             return res.status(404).json({
                 statusCode: 404,
@@ -61,6 +62,24 @@ routerProdutos.post('/', async function(req, res) {
 
 });
 
+routerProdutos.delete('/:id', async (req, res) =>{
+    const {id} = req.params;
+    console.log(id)
+    const query = 'DELETE FROM PRODUTOS WHERE ID= $1';
+    try {
+        const {rows} = await pool.query(query , [id]) ;
+        res.status(200).json({
+            statusCode: 200,
+            message: "Erro ao criar o produto.",
+        });
+    } catch (error) {
+        res.status(500).json({
+            statusCode: 500,
+            message: "Erro ao excluir o produto.",
+        });
+    }
+});
+
 // routerProdutos.get('/search', (req,res)=>{
 //     console.log(`${req.query.codigo}`);
 //     const filtro = req.query.codigo
@@ -86,9 +105,9 @@ routerProdutos.get('/search', async (req, res) => {
 
         res.status(200).json({
             statusCode: 200,
-            message: "Produtos filtrados com sucesso",
-            data: result.rows,
+            message: "Produtos Deletado com Sucesso"
         });
+
     } catch (error) {
         console.error('Erro ao consultar o banco de dados:', error);
         res.status(500).json({

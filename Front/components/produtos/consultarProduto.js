@@ -1,5 +1,24 @@
 const baseUrl = "http://localhost:3002/";
+const render = document.querySelector('.produto-render');
+const table = document.createElement("table");
 
+function insertTh(texto) {
+    const th = document.createElement("th");
+    th.innerText = texto;
+    return table.appendChild(th);
+}
+
+const th1 = insertTh('Código');
+const th2 = insertTh('Nome');
+const th3 = insertTh('Valor');
+const th4 = insertTh('Refêrencia');
+const th5 = insertTh('Estoque');
+
+function insertText(texto) {
+    const td = document.createElement("td");
+    td.innerHTML = texto
+    return td  
+}
 async function consultarProdutos(url) {
     const requisicao = url ? url : `${baseUrl}produtos`
     console.log(requisicao)
@@ -7,6 +26,7 @@ async function consultarProdutos(url) {
         const request = await fetch(`${requisicao}`)
         const response = await request.json();
         const jsonProutos = response.data;
+        table.innerText='';
         renderizarProdutos(jsonProutos);
         console.log(response);
     } catch (error) {
@@ -16,13 +36,13 @@ async function consultarProdutos(url) {
 
 function renderizarProdutos(jsonProutos){
     jsonProutos.map(produto => {
-        const render = document.querySelector('.produto-render');
         const codigo = insertText(produto.id);
         const nome = insertText(produto.nome);
         const valor = insertText(produto.valor)
         const referencia = insertText(produto.referencia);
         const estoque = insertText(produto.estoque);
         const tr = document.createElement('tr');
+        const tbody =document.createElement('tbody');
         const buttonExcluir = insertText(`
         <button class="button-limpar" onclick="deletarProduto(${produto.id})">Excluir<button/> 
         <button class="button-editar"><a href="./editarProduto.html">Editar<a><button/>`)
@@ -33,36 +53,13 @@ function renderizarProdutos(jsonProutos){
         tr.appendChild(referencia);
         tr.appendChild(estoque);
         tr.appendChild(buttonExcluir);
-        
         table.appendChild(tr);
-        render.appendChild(table);
+        
     });
+    render.appendChild(table);
 };
 
-const table = document.createElement("table");
-function insertTh(texto) {
-    const th = document.createElement("th");
-    th.innerText = texto;
-    return table.appendChild(th);
-}
 
-//Em breve no CRUD para deletar
-function deletarProduto(produto){
-   alert(`Estou deletando o produto ${produto}`)
-}
-
-const th1 = insertTh('Código');
-const th2 = insertTh('Nome');
-const th3 = insertTh('Valor');
-const th4 = insertTh('Refêrencia');
-const th5 = insertTh('Estoque');
-
-
-function insertText(texto) {
-    const td = document.createElement("td");
-    td.innerHTML = texto
-    return td  
-}
 
 
 const filtrar = document.querySelector('.button-enviar')
@@ -89,5 +86,18 @@ filtrar.addEventListener("click", filtro = (e) => {
     // })
     // console.log(produtosFiltrados) 
 });
+
+async function deletarProduto(produto) {
+    if (confirm('Tem certeza que deseja deletar este Produto?')) {
+        try {
+            console.log(baseUrl, produto)
+            const response = await fetch(`${baseUrl}produtos/${produto}`, { method: 'DELETE' })
+            console.log(response.message);
+            consultarProdutos();
+        } catch (error) {
+            console.log('Ocorreu um erro:', error)
+        }
+    }
+}
 
 consultarProdutos();
