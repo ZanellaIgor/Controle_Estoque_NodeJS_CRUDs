@@ -20,8 +20,8 @@ routerClientes.get('/search', (req,res)=>{
 });
 
 routerClientes.post('/', (req, res) => {
-    
-    const { nome, tipo, cpfCnpj, ie, email, telefone, cep, cidade, estado, rua, numero, complemento } = req.body;
+    console.log(req.body)
+    const { nome, tipo, cpfCnpj, ie,bairro, email, telefone, cep, cidade, estado, rua, numero, complemento } = req.body;
 
     const novoCliente = {
         nome,
@@ -32,12 +32,13 @@ routerClientes.post('/', (req, res) => {
         telefone,
         cep, cidade,
         estado,
+        bairro,
         rua,
         numero,
         complemento,
         createdAt: new Date().toISOString(),
     };
-    produtos.push(novoProduto);
+    
     res.status(201).json({
         statusCode: 201,
         message: `Produto ${novoCliente.id} - ${novoCliente.nome} criado com sucesso!`

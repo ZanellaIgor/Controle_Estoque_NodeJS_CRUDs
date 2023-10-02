@@ -66,7 +66,7 @@ routerProdutos.delete('/:id', async (req, res) =>{
     console.log(id)
     const query = 'DELETE FROM PRODUTOS WHERE ID= $1';
     try {
-        const {rows} = await pool.query(query , [id]) ;
+        await pool.query(query , [id]) ;
         res.status(200).json({
             statusCode: 200,
             message: "Erro ao criar o produto.",
@@ -87,28 +87,26 @@ routerProdutos.delete('/:id', async (req, res) =>{
 // });
 
 routerProdutos.get('/search', async (req, res) => {
-    const { codigo, nome = '', referencia = '' } = req.query;
-    console.log('Parâmetros:', { codigo, nome, referencia });
+    const { codigo, nome, referencia} = req.query;
     let query = `SELECT * FROM produtos WHERE`;
+    let filtros = {id:codigo, nome, referencia}
     let values = []
     
     if (codigo == '') {
-        query += `(nome LIKE '%' || $1 || '%') AND (referencia LIKE '%' || $2 || '%')`;
-        values = [nome, referencia];
+        query += `(lower(nome) LIKE '%' || $1 || '%') AND (lower(referencia) LIKE '%' || $2 || '%')`;
+        values = [nome.toLocaleLowerCase(), referencia.toLocaleLowerCase()];
     }
     else {
-        query += `(id = $1::int) AND (nome LIKE '%' || $2 || '%') AND (referencia LIKE '%' || $3 || '%')`;
-        values = [codigo, nome, referencia];
+        query += `(id = $1::int) AND (lower(nome) LIKE '%' || $2 || '%') AND (lower(referencia) LIKE '%' || $3 || '%')`;
+        values = [codigo, nome.toLocaleLowerCase(), referencia.toLocaleLowerCase()];
     }
     console.log('Consulta SQL:', query);
     try {
         const result = await pool.query(query, values);
-        console.log(result)
-        // Envie os resultados como resposta
-
+        console.log(result.rows)
         res.status(200).json({
             statusCode: 200,
-            message: "Produtos Deletado com Sucesso",
+            message: "Consulta realizada",
             data: result.rows
         });
 

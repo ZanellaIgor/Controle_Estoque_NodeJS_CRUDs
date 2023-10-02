@@ -45,6 +45,7 @@ function renderizarProdutos(jsonProutos){
         const valor = insertText(produto.valor)
         const referencia = insertText(produto.referencia);
         const estoque = insertText(produto.estoque);
+        console.log(produto.imagem)
         const tr = document.createElement('tr');
         const buttonExcluir = insertText(`
         <button class="button-limpar" onclick="deletarProduto(${produto.id})">Excluir<button/> 
