@@ -55,18 +55,18 @@ function inputValoresEndereco(){
 
 function inputValoresCliente(){
     const nome = document.getElementById('nome').value;
-    const radioInput = document.querySelector('input[name="tipo"]:checked').value;
+    const tipo = document.querySelector('input[name="tipo"]:checked').value;
     const cpfCnpj = document.getElementById('cpfCnpj').value;
     const ie = document.getElementById('ie').value;
     const email =document.getElementById('email').value;
     const telefone = document.getElementById('telefone').value;
-    const clienteDadosPessoais = {nome, radioInput, cpfCnpj, ie, email, telefone}
+    const clienteDadosPessoais = {nome, tipo, cpfCnpj, ie, email, telefone}
     return clienteDadosPessoais;
 };
 
 async function cadastrarCliente(clienteDadosPessoais, clienteEndereco){
     const url = "http://localhost:3002/clientes";
-    const clienteDados = {...clienteDadosPessoais, clienteEndereco}
+    const clienteDados = {...clienteDadosPessoais, ...clienteEndereco}
     try {
         const request = await fetch(url, {method: "POST",
         headers: {

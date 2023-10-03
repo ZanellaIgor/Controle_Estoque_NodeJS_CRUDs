@@ -2,13 +2,6 @@ const express = require('express');
 const routerProdutos = express.Router();
 const {pool}= require('../conexao/db');
 
-// const dbProdutos = [
-//     { "id": 1, "nome": "celula", "referencia": "Referencia", "estoque": 5, "valorUnit":5.5 },
-//     { "id": 2, "nome": "Celular", "referencia": "Referencia2", "estoque": 10, "valorUnit": 1200 },
-//     { "id": 3, "nome": "Produto", "referencia": "Referencia3", "estoque": 10, "valorUnit": 1300 },
-//     { "id": 4, "nome": "Camera", "referencia": "105-fr", "estoque": 25, "valorUnit": 8500 },
-//     { "id": 5, "nome": "Produto2", "referencia": "184-f", "estoque": 16, "valorUnit": 6589.45 },
-// ];
 
 routerProdutos.get('/', async function (req, res) {
     try {
