@@ -1,11 +1,13 @@
 const baseUrl = "http://localhost:3002/";
 const render = document.querySelector('.produto-render');
 const table = document.createElement("table");
+const trCabecalho =document.createElement('tr');
+
 
 function insertTh(texto) {
     const th = document.createElement("th");
     th.innerText = texto;
-    return table.appendChild(th);
+    return th;
 }
 
 
@@ -15,6 +17,12 @@ function criarCabecalho() {
     const th3 = insertTh('Valor');
     const th4 = insertTh('Refêrencia');
     const th5 = insertTh('Estoque');
+    trCabecalho.appendChild(th1)
+    trCabecalho.appendChild(th2)
+    trCabecalho.appendChild(th3)
+    trCabecalho.appendChild(th4)
+    trCabecalho.appendChild(th5)
+    table.appendChild(trCabecalho)
 }
 function insertText(texto) {
     const td = document.createElement("td");
@@ -34,7 +42,7 @@ async function consultarProdutos(url) {
         renderizarProdutos(jsonProutos);
         console.log(response);
     } catch (error) {
-        console.error('Erro:');
+        console.error(error);
     }
 }
 
@@ -42,14 +50,15 @@ function renderizarProdutos(jsonProutos){
     jsonProutos.map(produto => {
         const codigo = insertText(produto.id);
         const nome = insertText(produto.nome);
-        const valor = insertText(produto.valor)
+        const valor = insertText(produto.valor);
+        valor.classList.add('valoresNumericos');
         const referencia = insertText(produto.referencia);
         const estoque = insertText(produto.estoque);
-        console.log(produto.imagem)
+        estoque.classList.add('valoresNumericos');
         const tr = document.createElement('tr');
         const buttonExcluir = insertText(`
-        <button class="button-limpar" onclick="deletarProduto(${produto.id})">Excluir<button/> 
-        <button class="button-editar"><a href="./editarProduto.html">Editar<a><button/>`)
+        <button class="button-limpar" onclick="deletarProduto(${produto.id})">Excluir</button> 
+        <button class="button-editar"><a href="./editarProduto.html">Editar</a></button>`)
         
         tr.appendChild(codigo);
         tr.appendChild(nome);

@@ -29,13 +29,14 @@ routerProdutos.get('/', async function (req, res) {
 });
 
 routerProdutos.post('/', async function(req, res) {
-    const { nome, referencia, valor, estoque, imagem} = req.body;
+    const { nome, referencia, valor, estoque} = req.body;
     try {
-        const insertQuery = `INSERT INTO produtos (nome, referencia, valor, estoque, imagem)
-        VALUES ($1, $2, $3, $4, $5)
+        const insertQuery = `INSERT INTO produtos (nome, referencia, valor, estoque)
+        VALUES ($1, $2, $3, $4)
         RETURNING id;`;
 
-        const values = [nome, referencia, valor, estoque, imagem];
+        const values = [nome, referencia, parseFloat(valor), estoque];
+        console.log(values)
         const {rows} = await pool.query(insertQuery, values);
         const novoProdutoId = rows[0].id;
 
@@ -87,11 +88,11 @@ routerProdutos.get('/search', async (req, res) => {
     
     if (codigo == '') {
         query += `(lower(nome) LIKE '%' || $1 || '%') AND (lower(referencia) LIKE '%' || $2 || '%')`;
-        values = [nome.toLocaleLowerCase(), referencia.toLocaleLowerCase()];
+        values = [nome.toLowerCase(), referencia.toLowerCase()];
     }
     else {
         query += `(id = $1::int) AND (lower(nome) LIKE '%' || $2 || '%') AND (lower(referencia) LIKE '%' || $3 || '%')`;
-        values = [codigo, nome.toLocaleLowerCase(), referencia.toLocaleLowerCase()];
+        values = [codigo, nome.toLowerCase(), referencia.toLowerCase()];
     }
     console.log('Consulta SQL:', query);
     try {

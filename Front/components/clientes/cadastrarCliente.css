@@ -5,12 +5,17 @@ h3 {
     text-align: center;
     padding-top: 10px;
 }
+label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 input {
     color: var(--cor-font);
     border: none;
-    border-bottom: 1px;
     border-radius: 4px;
     background-color: var(--cor-background-bordas);
+    width: 300px;
 }
 button {
     border: none;
@@ -27,7 +32,7 @@ form {
     height: 100%;
 }
 .cliente.cadastrar{
-    height: 90%;
+    flex: 1;
 }
 .container-cliente{
     display: flex;
@@ -39,7 +44,6 @@ form {
     grid-template-columns: 1fr 1fr;
     margin: auto;
     border: 1px solid var(--cor-background-bordas);
-    background-color: rgba(212, 243, 243, 0.712);
     border-radius: 4px;
     width: 80%;
     height: 100%;
