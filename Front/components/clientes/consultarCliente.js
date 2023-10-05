@@ -39,14 +39,14 @@ async function consultarClientes(url) {
         const jsonClientes = response.data;
         table.innerText='';
         criarCabecalho();
-        renderizarProdutos(jsonClientes);
+        renderizarClientes(jsonClientes);
         console.log(response);
     } catch (error) {
         console.error(error);
     }
 }
 
-function renderizarProdutos(jsonClientes){
+function renderizarClientes(jsonClientes){
     jsonClientes.map(cliente => {
         const codigo = insertText(cliente.id);
         const nome = insertText(cliente.nome);
