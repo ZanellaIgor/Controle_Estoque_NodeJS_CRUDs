@@ -86,5 +86,29 @@ routerClientes.post('/', async(req, res) => {
    
 });
 
+routerClientes.get('/contagem', async (req, res) => {
+    try {
+      const query = 'SELECT COUNT(*) FROM PESSOAS';
+      const result = await pool.query(query);
+      const count = result.rows[0].count;
+      res.json({ count });
+    } catch (error) {
+      console.error('Erro na consulta:', error);
+      res.status(500).json({ error: 'Erro na consulta' });
+    }
+  });
+
+  routerClientes.get('/cidades', async (req, res) => {
+    try {
+      const query = 'SELECT CIDADE, COUNT(*) FROM PESSOAS group by CIDADE order by 2 DESC LIMIT 5';
+      const result = await pool.query(query);
+      const rows = result.rows;
+      res.json({ rows });
+    } catch (error) {
+      console.error('Erro na consulta:', error);
+      res.status(500).json({ error: 'Erro na consulta' });
+    }
+  });
+
 
 module.exports = routerClientes;
