@@ -1,6 +1,6 @@
 const express = require('express');
 const routerClientes = express.Router();
-const {pool}= require('../conexao/db');
+const { pool } = require('../conexao/db');
 
 
 routerClientes.get('/', async (req, res) => {
@@ -26,13 +26,26 @@ routerClientes.get('/', async (req, res) => {
     }
 });
 
-routerClientes.get('/search', (req, res) => {
+routerClientes.get('/search', async(req, res) => {
     console.log(`${req.query.nome}`);
-    const searchCliente = dbClientes.filter(cliente => cliente.nome.toLowerCase().includes(req.query.nome.toLowerCase()));
-    res.json(searchCliente);
+    let values= []
+    try {
+        const query = `SELECT * FROM PESSOAS WHERE lower(NOME) LIKE $1`;
+        values = [`%${(req.query.nome).toLocaleLowerCase()}%`];
+        console.log(values)
+        const {rows} = await pool.query(query, values);
+        console.log(rows)
+        res.status(200).json({
+            statusCode: 200,
+            message: 'Lista de Clientes',
+            data: rows,
+        });
+    } catch (error) {
+console.log(error)
+    }
 });
 
-routerClientes.post('/', async(req, res) => {
+routerClientes.post('/', async (req, res) => {
     console.log(req.body)
     const { nome, tipo, cpfCnpj, ie, bairro, email, telefone, cep, cidade, estado, rua, numero, complemento } = req.body;
     try {
@@ -53,7 +66,7 @@ routerClientes.post('/', async(req, res) => {
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
     RETURNING id;`;
 
-        const novaPessoa =[
+        const novaPessoa = [
             nome,
             tipo,
             cpfCnpj,
@@ -69,11 +82,11 @@ routerClientes.post('/', async(req, res) => {
             complemento
         ];
         console.log(novaPessoa)
-        const {rows} = await pool.query(insertQuery, novaPessoa);
+        const { rows } = await pool.query(insertQuery, novaPessoa);
         const novaPessoaID = rows[0].id;
         res.status(201).json({
             statusCode: 201,
-            message:"Cliente criado com Sucesso",
+            message: "Cliente criado com Sucesso",
             novaPessoaID,
         })
     } catch (error) {
@@ -83,32 +96,32 @@ routerClientes.post('/', async(req, res) => {
             message: "Erro ao criar o Pessoa.",
         });
     }
-   
+
 });
 
 routerClientes.get('/contagem', async (req, res) => {
     try {
-      const query = 'SELECT COUNT(*) FROM PESSOAS';
-      const result = await pool.query(query);
-      const count = result.rows[0].count;
-      res.json({ count });
+        const query = 'SELECT COUNT(*) FROM PESSOAS';
+        const result = await pool.query(query);
+        const count = result.rows[0].count;
+        res.json({ count });
     } catch (error) {
-      console.error('Erro na consulta:', error);
-      res.status(500).json({ error: 'Erro na consulta' });
+        console.error('Erro na consulta:', error);
+        res.status(500).json({ error: 'Erro na consulta' });
     }
-  });
+});
 
-  routerClientes.get('/cidades', async (req, res) => {
+routerClientes.get('/cidades', async (req, res) => {
     try {
-      const query = 'SELECT CIDADE, COUNT(*) FROM PESSOAS group by CIDADE order by 2 DESC LIMIT 5';
-      const result = await pool.query(query);
-      const rows = result.rows;
-      res.json({ rows });
+        const query = 'SELECT CIDADE, COUNT(*) FROM PESSOAS group by CIDADE order by 2 DESC LIMIT 5';
+        const result = await pool.query(query);
+        const rows = result.rows;
+        res.json({ rows });
     } catch (error) {
-      console.error('Erro na consulta:', error);
-      res.status(500).json({ error: 'Erro na consulta' });
+        console.error('Erro na consulta:', error);
+        res.status(500).json({ error: 'Erro na consulta' });
     }
-  });
+});
 
 
 module.exports = routerClientes;

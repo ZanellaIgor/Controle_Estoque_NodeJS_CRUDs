@@ -73,3 +73,6 @@ li:hover{
     background-color:var(--cor-nav-hover);
     border-radius: 6px;
 }
+main{
+    min-height: 82vh;
+}

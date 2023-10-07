@@ -20,10 +20,23 @@ async function renderizarDashboardClientes(){
        const request = await fetch(`${baseUrl}clientes/cidades`);
        const response = await request.json();
        console.log(response);
-       pessoas.innerHTML+=`Total de Clientes ${response.rows}`
+       const  cliente = response.rows
+       const cidades = document.createElement('div');
+       
+       
+       for (let i in cliente){
+        const numero =document.createElement('p');
+        numero.innerHTML+=`Total de Clientes em ${cliente[i].cidade} são ${cliente[i].count} `
+        cidades.appendChild(numero)
+        pessoas.appendChild(cidades)
+       }
        
     } catch (error) {
         console.log(error);
     }
 };
+function insertElementos(conteudo){
+
+}
+
 dashboardHome()

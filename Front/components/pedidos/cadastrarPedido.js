@@ -31,7 +31,7 @@ async function filterClientes() {
         const response = await fetch(`${baseUrl}clientes/search?nome=${nomeCliente}`);
         const clientes = await response.json();
         console.log("Dados da consulta:", clientes);
-        sugestoesClientes(clientes);
+        sugestoesClientes(clientes.data);
     } catch (error) {
         console.error("Erro na consulta:");
     }
@@ -39,6 +39,7 @@ async function filterClientes() {
 
 
 function sugestoesClientes(clientes) {
+    console.log(clientes);
     clientes.forEach(cliente => {
         const li = document.createElement('li');
         li.textContent = cliente.nome;
@@ -55,7 +56,6 @@ function sugestoesClientes(clientes) {
 }
 
 const searchInputProdutos = document.getElementById('produto');
-
 searchInputProdutos.addEventListener('input',()=>{
     clearTimeout(timeoutId);
     timeoutId =setTimeout(function() {
@@ -69,13 +69,14 @@ async function filtrarProdutos(){
     try {
       const response = await fetch(`${baseUrl}produtos/search?produto=${produtoInput}`)  
       const produtos = await response.json();
-      sugestoesProdutos(produtos);
+      sugestoesProdutos(produtos.data);
     } catch (error) {
         console.log(error);
     }
 }
 
 function sugestoesProdutos(produtos){
+    console.log(produtos)
     listaDeSugestoesProdutos.innerHTML = '';
     if (errorProduto.innerHTML ) errorProduto.innerHTML='';
     produtos.forEach(produto => {
