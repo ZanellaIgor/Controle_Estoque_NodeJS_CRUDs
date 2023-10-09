@@ -30,12 +30,16 @@ async function cadastrarPedido(novoProduto) {
             },
             body: JSON.stringify(novoProduto)
         });
+      
         const response = await request.json();
+        if(response.error){
+            return alert(`${response.error}`)
+        }
         console.log(response);
         alert(`${response.message} com codigo ${response.novoProdutoId}`);
        
     } catch (error) {
-        console.error('Erro:');
+        alert(`${error}`)
     }
 }
 

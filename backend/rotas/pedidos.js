@@ -14,16 +14,15 @@ routerDocumentos.get('/', (req, res) =>{
 });
 
 routerDocumentos.post('/', async (req, res) =>{
-    
     const {listaDeProdutos, dadosPedido} = req.body
     console.log(req.body)
     try {
         const insertQuery = `
-        INSERT INTO documentos (nomecliente, valortotal)
-        VALUES ($1, $2)
+        INSERT INTO documentos (IDPESSOA, VALORTOTAL, TIPO)
+        VALUES ($1, $2, $3)
         RETURNING id;`;
 
-        const values = [dadosPedido.idPessoa, dadosPedido.valorPedido];
+        const values = [dadosPedido.idPessoa, dadosPedido.valorPedido, dadosPedido.tipo];
 
 
         const { rows } = await pool.query(insertQuery, values);

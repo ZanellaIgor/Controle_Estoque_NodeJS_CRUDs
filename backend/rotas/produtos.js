@@ -30,12 +30,16 @@ routerProdutos.get('/', async function (req, res) {
 
 routerProdutos.post('/', async function (req, res) {
     const { nome, referencia, valor, estoque } = req.body;
+    
+    if (!nome || !valor || !estoque) {
+        return res.status(500).json({ error: 'Os campos nome, valor e estoque devem ser preenchidos' });
+      }
     try {
         const insertQuery = `INSERT INTO produtos (nome, referencia, valor, estoque)
         VALUES ($1, $2, $3, $4)
         RETURNING id;`;
 
-        const values = [nome, referencia, parseFloat(valor), estoque];
+        const values = [nome, referencia, parseFloat(valor), parseFloat(estoque)];
         console.log(values)
         const { rows } = await pool.query(insertQuery, values);
         const novoProdutoId = rows[0].id;
