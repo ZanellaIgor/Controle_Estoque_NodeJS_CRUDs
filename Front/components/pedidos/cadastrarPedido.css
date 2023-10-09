@@ -18,8 +18,9 @@ form {
 input {
     border: none;
     border-radius: 4px;
+    border-bottom: 1px solid aqua;
     background-color: aqua;
-    width: 100%;
+    max-width: 100%;
 }
 button {
     border: none;
@@ -36,8 +37,14 @@ tr {
     display: grid;
     grid-template-columns: .5fr 2fr 1fr 1fr 1fr 1fr .5fr;
 }
-ul{
+main ul{
+    position: absolute;
     z-index: 2;
+    width: 20em;
+    border-radius: 4px;
+}
+li{
+    background-color:var(--cor-nav);
 }
 
 .container-input-produto{
@@ -49,4 +56,11 @@ ul{
     max-height: 20em;
     overflow-y: auto !important; 
     border-collapse: collapse; 
+}
+#valorTotal{
+    width: max-content;
+}
+.container-enviar{
+    display: flex;
+    justify-content: space-between;
 }

@@ -9,12 +9,12 @@ const dbPedidos = [
 ]
 
 routerDocumentos.get('/', (req, res) =>{
-    console.log('get')
-    res.json(dbPedidos)
+    console.log('get');
+    res.json(dbPedidos);
 });
 
 routerDocumentos.post('/', async (req, res) =>{
-    //const {idPessoa, cliente,tipo, valorTotal} = req.body;
+    
     const {listaDeProdutos, dadosPedido} = req.body
     console.log(req.body)
     try {

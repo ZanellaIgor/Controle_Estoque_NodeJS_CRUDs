@@ -23,8 +23,8 @@ searchInputClientes.addEventListener('input', function() {
 });
 
 async function filterClientes() {
-    error.innerHTML=''
-    listaDeSugestoes.innerHTML=''
+    error.innerHTML='';
+    listaDeSugestoes.innerHTML='';
     const nomeCliente = searchInputClientes.value;
     if(nomeCliente && nomeCliente.length <= 3) return error.innerHTML='Favor digitar ao menos 3 caracteres';
     try {
@@ -36,7 +36,6 @@ async function filterClientes() {
         console.error("Erro na consulta:");
     }
 }
-
 
 function sugestoesClientes(clientes) {
     console.log(clientes);
@@ -64,7 +63,7 @@ searchInputProdutos.addEventListener('input',()=>{
 })
 
 async function filtrarProdutos(){
-    listaDeSugestoesProdutos.innerHTML = ''
+    listaDeSugestoesProdutos.innerHTML = '';
     const produtoInput = searchInputProdutos.value;
     try {
       const response = await fetch(`${baseUrl}produtos/search?produto=${produtoInput}`)  
@@ -76,7 +75,7 @@ async function filtrarProdutos(){
 }
 
 function sugestoesProdutos(produtos){
-    console.log(produtos)
+    console.log(produtos);
     listaDeSugestoesProdutos.innerHTML = '';
     if (errorProduto.innerHTML ) errorProduto.innerHTML='';
     produtos.forEach(produto => {
@@ -84,13 +83,12 @@ function sugestoesProdutos(produtos){
         li.textContent = produto.nome;
         li.dataset.idProduto= produto.id;
         listaDeSugestoesProdutos.appendChild(li);
-
         li.addEventListener('click', function() {
             inputValorUnit.value= produto.valorUnit;
             searchInputProdutos.value = produto.nome;
             searchInputProdutos.dataset.id= produto.id;
             searchInputProdutos.dataset.referencia= produto.referencia;
-            listaDeSugestoesProdutos.innerHTML=''
+            listaDeSugestoesProdutos.innerHTML='';
             inputQuantidade.focus();
         });
     });
@@ -99,8 +97,8 @@ function sugestoesProdutos(produtos){
 function insertProduto(event){
     event.preventDefault();
     if (searchInputProdutos.dataset.id == null || inputValorUnit.value == (null || 0) || inputQuantidade.value == (null || 0) ){
-        return errorProduto.innerHTML='Verifique os valores informados'
-    }
+        return errorProduto.innerHTML='Verifique os valores informados';
+    };
     const produtos = document.querySelector('.container-produtos');
     const produto = document.createElement('tr');
     produto.classList.add('container-produto');
@@ -117,12 +115,12 @@ function insertProduto(event){
     idSeq++;
     console.log(idSeq)
     produtos.appendChild(produto);
-    valorTotalPedido()
+    valorTotalPedido();
     resetInput();
 };
 
 function removerProduto(id){
-   const item = document.querySelector(`.container-produto[data-seq="${id}"]`)
+   const item = document.querySelector(`.container-produto[data-seq="${id}"]`);
    item.remove();
 }
 
@@ -141,7 +139,7 @@ function valorTotalPedido(){
     inputValorTotal.value=valorPedido;
 }
 
-const buttonCadastrar = document.getElementById('buttonCadastrar')
+const buttonCadastrar = document.getElementById('buttonCadastrar');
 buttonCadastrar.addEventListener('click', async function(){
     const listaDeProdutos = buscarDadosProdutos();
     const dadosPedido = buscarDadosPedido();
@@ -176,7 +174,7 @@ function buscarDadosPedido(){
         tipo:selectTipoPedido,
         valorPedido,
     }
-    return dadosPedido
+    return dadosPedido;
 }
 
 async function cadastrarPedido(listaDeProdutos,dadosPedido){
