@@ -3,13 +3,11 @@ const render = document.querySelector('.clientes-render');
 const table = document.createElement("table");
 const trCabecalho =document.createElement('tr');
 
-
 function insertTh(texto) {
     const th = document.createElement("th");
     th.innerText = texto;
     return th;
 }
-
 
 function criarCabecalho() {
     const th1 = insertTh('Código');

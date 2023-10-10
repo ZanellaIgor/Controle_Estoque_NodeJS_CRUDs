@@ -1,21 +1,39 @@
-const express =require('express');
+const express = require('express');
 const routerDocumentos = express.Router();
-const {pool}= require('../conexao/db');
+const { pool } = require('../conexao/db');
 
-const dbPedidos = [
-    {"id":1, "idPessoa":5, "tipo":"S", "cliente":"Roberval", "valorTotal":2530.55},
-    {"id":2, "idPessoa":5, "tipo":"S", "cliente":"Roberval", "valorTotal":1580},
-    {"id":3, "idPessoa":5, "tipo":"S", "Pedro":"Roberval", "valorTotal":800}
-]
 
-routerDocumentos.get('/', (req, res) =>{
-    console.log('get');
-    res.json(dbPedidos);
+routerDocumentos.get('/', async (req, res) => {
+    try {
+        const query = `SELECT DOC.*, PES.NOME as cliente, PES.CIDADE,PES.ESTADO FROM DOCUMENTOS DOC 
+        INNER JOIN PESSOAS PES ON PES.ID=DOC.ID_PESSOA`
+        const resultadoBanco = await pool.query(query);
+        if (resultadoBanco.rows.length === 0) {
+            return res.status(404).json({
+                statusCode: 404,
+                message: 'Nenhum Cliente encontrado.',
+            })
+        };
+        res.status(200).json({
+            statusCode: 200,
+            message: 'Lista de Pedidos',
+            data: resultadoBanco.rows,
+        });
+    } catch (error) {
+        res.status(500).json({
+            statusCode: 500,
+            message: 'Erro ao realizar a consulta.',
+        });
+    }
 });
 
 routerDocumentos.post('/', async (req, res) => {
     const { listaDeProdutos, dadosPedido } = req.body
-    console.log(req.body)
+    const dataAtual = new Date();
+    const opcoesDeFormato = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const formato = new Intl.DateTimeFormat('pt-BR', opcoesDeFormato);
+    const dataFormatada = formato.format(dataAtual);
+    
     if (!dadosPedido.idPessoa || !dadosPedido.valorPedido || !dadosPedido.tipo) {
         return res.status(500).json({
             error: "Favor verificar os dados inseridos.",
@@ -25,15 +43,15 @@ routerDocumentos.post('/', async (req, res) => {
     try {
         await client.query('BEGIN');
         const insertQuery = `
-        INSERT INTO documentos (ID_PESSOA, VALOR_TOTAL, TIPO)
-        VALUES ($1, $2, $3)
+        INSERT INTO documentos (ID_PESSOA, VALOR_TOTAL, TIPO, DATA_EMISSAO)
+        VALUES ($1, $2, $3, $4)
         RETURNING id;`;
 
-        const valuesDocumento = [dadosPedido.idPessoa, dadosPedido.valorPedido, dadosPedido.tipo];
+        const valuesDocumento = [dadosPedido.idPessoa, dadosPedido.valorPedido, dadosPedido.tipo, dataFormatada];
 
         const { rows } = await pool.query(insertQuery, valuesDocumento);
         console.log('aqui')
-       
+
         const novoDocumentoId = rows[0].id;
 
         for (const produto of listaDeProdutos) {
@@ -50,14 +68,14 @@ routerDocumentos.post('/', async (req, res) => {
             await client.query(produtoInsertQuery, produtoValues);
         }
 
-        for (const produto of listaDeProdutos){
-            let updateQuery=[];
-            let updateValues=[produto.codigo, produto.quantidade];
-            if(dadosPedido.tipo=='s'){
+        for (const produto of listaDeProdutos) {
+            let updateQuery = [];
+            let updateValues = [produto.codigo, produto.quantidade];
+            if (dadosPedido.tipo == 'S') {
                 updateQuery = `UPDATE PRODUTOS SET estoque = estoque - $2
                 WHERE id = $1;`
             }
-            if(dadosPedido.tipo=='e'){
+            if (dadosPedido.tipo == 'E') {
                 updateQuery = `UPDATE PRODUTOS SET estoque = estoque + $2
                 WHERE id = $1;`
             }
@@ -76,12 +94,12 @@ routerDocumentos.post('/', async (req, res) => {
         await client.query('ROLLBACK'); // Em caso de erro, desfazer a transação
         console.error('Erro ao cadastrar o pedido no banco de dados:', error);
         res.status(500).json({
-          statusCode: 500,
-          message: 'Erro ao criar o pedido.',
+            statusCode: 500,
+            message: 'Erro ao criar o pedido.',
         });
-      } finally {
+    } finally {
         client.release(); // Liberar a conexão do pool
-      }
+    }
 });
 
 module.exports = routerDocumentos;

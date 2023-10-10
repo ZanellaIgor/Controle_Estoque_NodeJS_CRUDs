@@ -7,8 +7,9 @@
     <title>Bem vindo</title>
     <link rel="stylesheet" href="../../layout/footer.css">
     <link rel="stylesheet" href="../../layout/header.css">
+    <link rel="stylesheet" href="consultarPedidos.css">
     <script src="../../layout/home.js" defer></script>
-    <script src="./consultarPedido.js" defer></script>
+    <script src="./consultarPedidos.js" defer></script>
 </head>
 <body>
     <header>
@@ -22,7 +23,7 @@
                 <a href="../produtos/cadastrarProduto.html">
                     <li>Cadastrar</li>
                 </a>
-                <a href="../produtos/consultarProduto.html">
+                <a href="../produtos/consultarProdutos.html">
                     <li>Consultar</li>
                 </a>
             </div>
@@ -33,7 +34,7 @@
                 <a href="./../clientes/cadastrarCliente.html">
                     <li>Cadastrar</li>
                 </a>
-                <a href="../clientes/consultarCliente.html">
+                <a href="../clientes/consultarClientes.html">
                     <li>Consultar</li>
                 </a>
             </div>
@@ -44,7 +45,7 @@
                 <a href="./cadastrarPedido.html">
                     <li>Cadastrar</li>
                 </a>
-                <a href="./consultarPedido.html">
+                <a href="./consultarPedidos.html">
                     <li>Consultar</li>
                 </a>
             </div>
@@ -52,9 +53,16 @@
     </nav>
     <main>
         <div class="conteudo">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi deserunt dignissimos assumenda rerum illum
-                tempore nobis exercitationem temporibus, maiores vero quas provident commodi, soluta voluptates minima
-                inventore alias ad! Explicabo!</p>
+            <h3>Consulta de Documentos:</h3>
+            <form action="">
+                <label for="cliente">Cliente: <input type="text" name="cliente" id="cliente"></label>
+                <label for="dataIni">Data Inicial <input type="date" name="dataIni" id="dataIni"></label>
+                <label for="dataFin">Data Final <input type="date" name="dataFin" id="dataFin"></label>
+                <button class="button-enviar">Pesquisar</button>
+            </form>
+            <div class="pedidos-render">
+                
+            </div>
         </div>
     </main>
     <footer>
