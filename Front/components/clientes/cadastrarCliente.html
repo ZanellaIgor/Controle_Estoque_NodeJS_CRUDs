@@ -56,20 +56,19 @@
             <h3>Cadastrar Cliente:</h3>
             <form action="" class="container-cliente">
                 <div><button type="submit" class="button-enviar">Cadastrar</button>
-                <p class="error">ERROR</p></div>
+                <p class="error"></p></div>
                 <div class="container-principal">
                     <label for="nome">Nome:
                         <input type="text" name="nome" id="nome"></label>
-                    <div>
-                        <label>
+                    <div><div class="container-tipo-cliente">
+                        <label>Jurídica
                             <input type="radio" name="tipo" value="pessoa_juridica">
-                            Jurídica
-                        </label>
-                        <label>
-                            <input type="radio" name="tipo" value="pessoa_fisica" checked>
-                            Física
                         </label>
                     </div>
+                    <div class="container-tipo-cliente">
+                        <label>Física<input type="radio" name="tipo" value="pessoa_fisica" checked>
+                        </label>
+                    </div></div>
                     <label for="cpfCnpj">CPF/CNPJ:
                         <input type="text" name="cpfCnpj" id="cpfCnpj"></label>
                     <label for="ie">Inscrição Estadual:

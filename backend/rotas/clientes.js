@@ -48,6 +48,12 @@ console.log(error)
 routerClientes.post('/', async (req, res) => {
     console.log(req.body)
     const { nome, tipo, cpfCnpj, ie, bairro, email, telefone, cep, cidade, estado, rua, numero, complemento } = req.body;
+    if(!nome || !cep){
+        return res.status(500).json({ error: 'Os campos Nome e CEP são obrigatórios.' });
+    }
+    if(!cidade || !estado){
+        return res.status(500).json({ error: 'Ao digitar o CEP clique em pesquisar.' });
+    }
     try {
         const insertQuery = `INSERT INTO PESSOAS (
             nome,

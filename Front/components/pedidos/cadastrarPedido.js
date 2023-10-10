@@ -14,6 +14,7 @@ let idSeq = 1;
 let valorPedido=0;
 const cliente = document.getElementById('cliente');
 const tipoPedido = document.getElementById('tipo');
+const messageError = document.getElementById('error')
 
 searchInputClientes.addEventListener('input', function() {
     clearTimeout(timeoutId);
@@ -187,6 +188,12 @@ async function cadastrarPedido(listaDeProdutos,dadosPedido){
             },
             body: JSON.stringify({listaDeProdutos, dadosPedido})
         });
+        const response = await cadastro.json();
+        console.log(response)
+        if(response.error){
+            return messageError.innerHTML=`${response.error}`
+        }
+
     } catch (error) {
         console.error('Erro:');
     }

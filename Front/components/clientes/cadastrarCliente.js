@@ -1,11 +1,11 @@
-const buttonCep = document.getElementById('button-enviar cep')
+const buttonCep = document.getElementById('button-enviar cep');
 buttonCep.addEventListener('click', (e)=>{
     e.preventDefault();
     const inputValue = document.getElementById('cep').value;
     const cep = inputValue.replace(/\D/g, '');
     consultaCep(cep);
 })
-
+const messageError = document.querySelector('.error');
 async function consultaCep(cep){
     console.log(cep)
    const url = `https://viacep.com.br/ws/${cep}/json/` 
@@ -36,6 +36,7 @@ function preenchendoValores(endereco){
 const buttonCadastrar=document.querySelector('.button-enviar');
 buttonCadastrar.addEventListener('click', (e)=>{
     e.preventDefault();
+    messageError.innerHTML='';
     const clienteDadosPessoais = inputValoresCliente();
     const clienteEndereco = inputValoresEndereco();
     cadastrarCliente(clienteDadosPessoais, clienteEndereco);
@@ -74,6 +75,10 @@ async function cadastrarCliente(clienteDadosPessoais, clienteEndereco){
         },
         body: JSON.stringify(clienteDados)
     });
+    const response = await request.json();
+    if(response.error){
+        return messageError.innerHTML=`${response.error}`
+    }
     } catch (error) {
         console.log(error)
     }

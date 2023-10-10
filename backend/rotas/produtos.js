@@ -30,7 +30,7 @@ routerProdutos.get('/', async function (req, res) {
 
 routerProdutos.post('/', async function (req, res) {
     const { nome, referencia, valor, estoque } = req.body;
-    
+  
     if (!nome || !valor || !estoque) {
         return res.status(500).json({ error: 'Os campos nome, valor e estoque devem ser preenchidos' });
       }

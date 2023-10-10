@@ -13,21 +13,47 @@ routerDocumentos.get('/', (req, res) =>{
     res.json(dbPedidos);
 });
 
-routerDocumentos.post('/', async (req, res) =>{
-    const {listaDeProdutos, dadosPedido} = req.body
+routerDocumentos.post('/', async (req, res) => {
+    const { listaDeProdutos, dadosPedido } = req.body
     console.log(req.body)
+    if (!dadosPedido.idPessoa || !dadosPedido.valorPedido || !dadosPedido.tipo) {
+        return res.status(500).json({
+            error: "Favor verificar os dados inseridos.",
+        });
+    }
+    const client = await pool.connect();
     try {
+        await client.query('BEGIN');
         const insertQuery = `
         INSERT INTO documentos (IDPESSOA, VALORTOTAL, TIPO)
         VALUES ($1, $2, $3)
         RETURNING id;`;
 
-        const values = [dadosPedido.idPessoa, dadosPedido.valorPedido, dadosPedido.tipo];
+        const valuesDocumento = [dadosPedido.idPessoa, dadosPedido.valorPedido, dadosPedido.tipo];
 
-
-        const { rows } = await pool.query(insertQuery, values);
+        const { rows } = await pool.query(insertQuery, valuesDocumento);
         console.log('aqui')
         const novoPedidoId = rows[0].id;
+
+        // Inserir lista de produtos associada ao documento
+        for (const produto of listaDeProdutos) {
+            const produtoInsertQuery = `
+          INSERT INTO produtos (CODIGO, NOME, REFERENCIA, QUANTIDADE, VALORUNITARIO, VALORTOTAL, DOCUMENTOID)
+          VALUES ($1, $2, $3, $4, $5, $6, $7);
+        `;
+            const produtoValues = [
+                produto.codigo,
+                produto.nome,
+                produto.quantidade,
+                produto.valorUnitario,
+                produto.valorTotal,
+                novoDocumentoId,
+            ];
+            await client.query(produtoInsertQuery, produtoValues);
+        }
+
+        await client.query('COMMIT'); // Confirmar a transação
+
 
         res.status(201).json({
             statusCode: 201,
@@ -35,12 +61,15 @@ routerDocumentos.post('/', async (req, res) =>{
             novoPedidoId,
         });
     } catch (error) {
+        await client.query('ROLLBACK'); // Em caso de erro, desfazer a transação
         console.error('Erro ao cadastrar o pedido no banco de dados:', error);
         res.status(500).json({
-            statusCode: 500,
-            message: "Erro ao criar o pedido.",
+          statusCode: 500,
+          message: 'Erro ao criar o pedido.',
         });
-    }
+      } finally {
+        client.release(); // Liberar a conexão do pool
+      }
 });
 
 module.exports = routerDocumentos;

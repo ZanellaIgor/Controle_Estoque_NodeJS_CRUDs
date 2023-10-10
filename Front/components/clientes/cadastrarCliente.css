@@ -11,6 +11,7 @@ label{
     justify-content: center;
 }
 input {
+    display: flex;
     color: var(--cor-font);
     border: none;
     border-radius: 4px;
@@ -52,8 +53,11 @@ form {
 .error{
    color: red;
 }
-/* .container-cliente{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
+.container-tipo-cliente label{
+    flex-direction: row;
+    justify-content: space-between;
+}
+input[type=radio]{ 
+   width: 12px;
+}
+
