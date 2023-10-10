@@ -25,7 +25,7 @@ routerDocumentos.post('/', async (req, res) => {
     try {
         await client.query('BEGIN');
         const insertQuery = `
-        INSERT INTO documentos (IDPESSOA, VALORTOTAL, TIPO)
+        INSERT INTO documentos (ID_PESSOA, VALOR_TOTAL, TIPO)
         VALUES ($1, $2, $3)
         RETURNING id;`;
 
@@ -33,17 +33,16 @@ routerDocumentos.post('/', async (req, res) => {
 
         const { rows } = await pool.query(insertQuery, valuesDocumento);
         console.log('aqui')
-        const novoPedidoId = rows[0].id;
+        const novoDocumentoId = rows[0].id;
 
         // Inserir lista de produtos associada ao documento
         for (const produto of listaDeProdutos) {
             const produtoInsertQuery = `
-          INSERT INTO produtos (CODIGO, NOME, REFERENCIA, QUANTIDADE, VALORUNITARIO, VALORTOTAL, DOCUMENTOID)
-          VALUES ($1, $2, $3, $4, $5, $6, $7);
+          INSERT INTO movimentacao (ID_PRODUTO, QUANTIDADE, VALOR_UNITARIO, VALOR_TOTAL, ID_DOC)
+          VALUES ($1, $2, $3, $4, $5);
         `;
             const produtoValues = [
                 produto.codigo,
-                produto.nome,
                 produto.quantidade,
                 produto.valorUnitario,
                 produto.valorTotal,
@@ -58,7 +57,7 @@ routerDocumentos.post('/', async (req, res) => {
         res.status(201).json({
             statusCode: 201,
             message: "Pedido criado com Sucesso!",
-            novoPedidoId,
+            novoDocumentoId,
         });
     } catch (error) {
         await client.query('ROLLBACK'); // Em caso de erro, desfazer a transação

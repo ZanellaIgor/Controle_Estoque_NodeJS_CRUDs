@@ -85,7 +85,7 @@ function sugestoesProdutos(produtos){
         li.dataset.idProduto= produto.id;
         listaDeSugestoesProdutos.appendChild(li);
         li.addEventListener('click', function() {
-            inputValorUnit.value= produto.valorUnit;
+            inputValorUnit.value= produto.valor;
             searchInputProdutos.value = produto.nome;
             searchInputProdutos.dataset.id= produto.id;
             searchInputProdutos.dataset.referencia= produto.referencia;
@@ -123,6 +123,7 @@ function insertProduto(event){
 function removerProduto(id){
    const item = document.querySelector(`.container-produto[data-seq="${id}"]`);
    item.remove();
+   valorTotalPedido();
 }
 
 function resetInput(){
@@ -132,6 +133,7 @@ function resetInput(){
 }
 
 function valorTotalPedido(){
+    valorPedido=0
     const tdProdutos = Array.from(document.querySelectorAll('.container-produto'));
     tdProdutos.forEach(linha => {
         const celulas = linha.querySelectorAll('td');
