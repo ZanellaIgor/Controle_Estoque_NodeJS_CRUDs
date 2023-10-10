@@ -33,14 +33,13 @@ routerDocumentos.post('/', async (req, res) => {
 
         const { rows } = await pool.query(insertQuery, valuesDocumento);
         console.log('aqui')
+       
         const novoDocumentoId = rows[0].id;
 
-        // Inserir lista de produtos associada ao documento
         for (const produto of listaDeProdutos) {
             const produtoInsertQuery = `
           INSERT INTO movimentacao (ID_PRODUTO, QUANTIDADE, VALOR_UNITARIO, VALOR_TOTAL, ID_DOC)
-          VALUES ($1, $2, $3, $4, $5);
-        `;
+          VALUES ($1, $2, $3, $4, $5);`;
             const produtoValues = [
                 produto.codigo,
                 produto.quantidade,
@@ -51,14 +50,28 @@ routerDocumentos.post('/', async (req, res) => {
             await client.query(produtoInsertQuery, produtoValues);
         }
 
+        for (const produto of listaDeProdutos){
+            let updateQuery=[];
+            let updateValues=[produto.codigo, produto.quantidade];
+            if(dadosPedido.tipo=='s'){
+                updateQuery = `UPDATE PRODUTOS SET estoque = estoque - $2
+                WHERE id = $1;`
+            }
+            if(dadosPedido.tipo=='e'){
+                updateQuery = `UPDATE PRODUTOS SET estoque = estoque + $2
+                WHERE id = $1;`
+            }
+            await client.query(updateQuery, updateValues);
+        }
         await client.query('COMMIT'); // Confirmar a transação
-
 
         res.status(201).json({
             statusCode: 201,
             message: "Pedido criado com Sucesso!",
             novoDocumentoId,
         });
+
+
     } catch (error) {
         await client.query('ROLLBACK'); // Em caso de erro, desfazer a transação
         console.error('Erro ao cadastrar o pedido no banco de dados:', error);
