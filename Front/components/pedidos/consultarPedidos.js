@@ -70,5 +70,15 @@ function insertText(texto) {
     td.innerHTML = texto
     return td  
 }
+const filtrar = document.querySelector('.button-pesquisar')
+
+filtrar.addEventListener("click", filtro = (e) => {
+    e.preventDefault();
+    const cliente = document.getElementById('cliente').value
+    const dataIni = document.getElementById('dataIni').value
+    const dataFin = document.getElementById('dataFin').value
+    const url =  `${baseUrl}pedido/search?cliente=${cliente}&dataIni=${dataIni}&dataFin=${dataFin}`;
+    consultarProdutos(url)
+});
 
 consultarClientes();

@@ -40,7 +40,7 @@ async function consultarClientes(url) {
         renderizarClientes(jsonClientes);
         console.log(response);
     } catch (error) {
-        console.error(error);
+        console.log(error);
     }
 }
 
@@ -69,7 +69,14 @@ function renderizarClientes(jsonClientes){
     render.appendChild(table);
 };
 
-
+const filtrar = document.querySelector('.button-consultar');
+filtrar.addEventListener('click', (e)=>{
+    e.preventDefault();
+    const cliente = document.getElementById('nome').value;
+    const cidade = document. getElementById('cidade').value;
+    const url = `${baseUrl}clientes/search?nome=${cliente}&cidade=${cidade}`;
+    consultarClientes(url);
+})
 
 async function deletarProduto(cliente) {
     if (confirm('Tem certeza que deseja deletar este Cliente?')) {

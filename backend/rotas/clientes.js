@@ -26,22 +26,27 @@ routerClientes.get('/', async (req, res) => {
     }
 });
 
-routerClientes.get('/search', async(req, res) => {
-    console.log(`${req.query.nome}`);
-    let values= []
+routerClientes.get('/search', async (req, res) => {
+    const { nome, cidade } = req.query;
+    console.log(req.query)
+    let query = `SELECT * FROM PESSOAS WHERE lower(NOME) LIKE '%' || $1 || '%' AND lower(CIDADE) LIKE '%' || $2 || '%'`;
+    let values = [ nome ? nome.toLowerCase() : '', cidade ? cidade.toLowerCase() : '']
+   
     try {
-        const query = `SELECT * FROM PESSOAS WHERE lower(NOME) LIKE $1`;
-        values = [`%${(req.query.nome).toLocaleLowerCase()}%`];
-        console.log(values)
-        const {rows} = await pool.query(query, values);
-        console.log(rows)
+        const result = await pool.query(query, values);
+        console.log(result.rows)
         res.status(200).json({
             statusCode: 200,
-            message: 'Lista de Clientes',
-            data: rows,
+            message: "Consulta realizada",
+            data: result.rows
         });
+
     } catch (error) {
-console.log(error)
+        console.error('Erro ao consultar o banco de dados:', error);
+        res.status(500).json({
+            statusCode: 500,
+            message: "Erro ao realizar a consulta no banco de dados",
+        });
     }
 });
 
@@ -104,6 +109,8 @@ routerClientes.post('/', async (req, res) => {
     }
 
 });
+
+
 
 routerClientes.get('/contagem', async (req, res) => {
     try {

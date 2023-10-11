@@ -98,8 +98,7 @@ routerProdutos.get('/search', async (req, res) => {
             query += `(id = $1::int)`
             values = [produto];
         }
-        console.log('cheguei')
-        console.log(produto)
+
     } else {
         if (codigo == '') {
             query += `(lower(nome) LIKE '%' || $1 || '%') AND (lower(referencia) LIKE '%' || $2 || '%')`;
