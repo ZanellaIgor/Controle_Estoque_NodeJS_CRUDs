@@ -1,6 +1,7 @@
 const express = require('express');
 const routerDocumentos = express.Router();
 const { pool } = require('../conexao/db');
+const { format } = require('date-fns');
 
 
 routerDocumentos.get('/', async (req, res) => {
@@ -14,10 +15,14 @@ routerDocumentos.get('/', async (req, res) => {
                 message: 'Nenhum Cliente encontrado.',
             })
         };
+        const dadosFormatados = resultadoBanco.rows.map((row) => ({
+            ...row,
+            data_emissao: format(new Date(row.data_emissao), 'dd/MM/yyyy'),
+        }));
         res.status(200).json({
             statusCode: 200,
             message: 'Lista de Pedidos',
-            data: resultadoBanco.rows,
+            data: dadosFormatados,
         });
     } catch (error) {
         res.status(500).json({
@@ -28,25 +33,49 @@ routerDocumentos.get('/', async (req, res) => {
 });
 
 routerDocumentos.get('/search?', async(req, res)=>{
-    const {cliente, dataIni, dataFin} = req.query;
-    let query = `
-    SELECT DOC.*, PES.NOME as cliente, PES.CIDADE,PES.ESTADO FROM DOCUMENTOS DOC 
-    INNER JOIN PESSOAS PES ON PES.ID=DOC.ID_PESSOA WHERE`
-    let values =[]
     try {
+        const {cliente ='', dataIni, dataFin} = req.query;
+        let query = `
+        SELECT DOC.*, PES.NOME as cliente, PES.CIDADE,PES.ESTADO FROM DOCUMENTOS DOC 
+        INNER JOIN PESSOAS PES ON PES.ID=DOC.ID_PESSOA WHERE PES.NOME ilike '%'|| $1 || '%'`
+        let values = [cliente]
+        if (dataIni && dataFin){
+            query += ` AND DOC.DATA_EMISSAO between $2 and $3`
+            values =[cliente, dataIni, dataFin] 
+        }
+        console.log(values)
+        console.log(query)
+        const resultadoBanco = await pool.query(query, values);
+        if (resultadoBanco.rows.length === 0) {
+            return res.status(404).json({
+                statusCode: 404,
+                message: 'Nenhum Pedido encontrado.',
+            })
+        };
+        const dadosFormatados = resultadoBanco.rows.map((row) => ({
+            ...row,
+            data_emissao: format(new Date(row.data_emissao), 'dd/MM/yyyy'),
+        }));
+
+        res.status(200).json({
+            statusCode: 200,
+            message: 'Pedidos encontrados',
+            data: dadosFormatados,
+        });
         
     } catch (error) {
-        
+        console.log(error)
+        res.status(500).json({
+            statusCode: 500,
+            message: 'Erro ao realizar a consulta.',
+        });
     }
 })
 
 routerDocumentos.post('/', async (req, res) => {
     const { listaDeProdutos, dadosPedido } = req.body
     const dataAtual = new Date();
-    const opcoesDeFormato = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    const formato = new Intl.DateTimeFormat('pt-BR', opcoesDeFormato);
-    const dataFormatada = formato.format(dataAtual);
-    
+    const dataFormatada = format(dataAtual, 'yyyy-MM-dd');
     if (!dadosPedido.idPessoa || !dadosPedido.valorPedido || !dadosPedido.tipo) {
         return res.status(500).json({
             error: "Favor verificar os dados inseridos.",

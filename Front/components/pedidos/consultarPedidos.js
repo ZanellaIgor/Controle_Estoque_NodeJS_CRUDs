@@ -27,7 +27,7 @@ function criarCabecalho() {
     table.appendChild(trCabecalho)
 }
 
-async function consultarClientes(url) {
+async function consultarDocumentos(url) {
     const requisicao = url ? url : `${baseUrl}pedidos`
     console.log(requisicao)
     try {
@@ -35,7 +35,8 @@ async function consultarClientes(url) {
         const response = await request.json();
         const jsonPedidos = response.data;
         console.log(jsonPedidos)
-        table.innerText='';
+        trCabecalho.innerHTML='';
+        table.innerHTML='';
         criarCabecalho();
         renderizarClientes(jsonPedidos);
         console.log(response);
@@ -77,8 +78,8 @@ filtrar.addEventListener("click", filtro = (e) => {
     const cliente = document.getElementById('cliente').value
     const dataIni = document.getElementById('dataIni').value
     const dataFin = document.getElementById('dataFin').value
-    const url =  `${baseUrl}pedido/search?cliente=${cliente}&dataIni=${dataIni}&dataFin=${dataFin}`;
-    consultarProdutos(url)
+    const url =  `${baseUrl}pedidos/search?cliente=${cliente}&dataIni=${dataIni}&dataFin=${dataFin}`;
+    consultarDocumentos(url)
 });
 
-consultarClientes();
+consultarDocumentos();
