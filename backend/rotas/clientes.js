@@ -97,17 +97,35 @@ routerClientes.post('/', async (req, res) => {
         const novaPessoaID = rows[0].id;
         res.status(201).json({
             statusCode: 201,
-            message: "Cliente criado com Sucesso",
+            message: "Cliente cadastrado com Sucesso",
             novaPessoaID,
         })
     } catch (error) {
         console.log(error);
         res.status(500).json({
             statusCode: 500,
-            message: "Erro ao criar o Pessoa.",
+            message: "Erro ao cadastrar o Pessoa.",
         });
     }
 
+});
+
+routerClientes.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    console.log(id)
+    const query = 'DELETE FROM PESSOAS WHERE ID= $1';
+    try {
+        await pool.query(query, [id]);
+        res.status(200).json({
+            statusCode: 200,
+            message: "Cliente Excluído.",
+        });
+    } catch (error) {
+        res.status(500).json({
+            statusCode: 500,
+            message: "Erro ao excluir o Cliente.",
+        });
+    }
 });
 
 
@@ -135,6 +153,7 @@ routerClientes.get('/cidades', async (req, res) => {
         res.status(500).json({ error: 'Erro na consulta' });
     }
 });
+
 
 
 module.exports = routerClientes;
