@@ -10,6 +10,7 @@ function insertTh(texto) {
 }
 
 function criarCabecalho() {
+    
     const th1 = insertTh('Código');
     const th2 = insertTh('Nome');
     const th3 = insertTh('Cidade');
@@ -31,11 +32,13 @@ function insertText(texto) {
 async function consultarClientes(url) {
     const requisicao = url ? url : `${baseUrl}clientes`
     console.log(requisicao)
+    table.innerHTML='';
+    trCabecalho.innerHTML=''
     try {
         const request = await fetch(`${requisicao}`)
         const response = await request.json();
         const jsonClientes = response.data;
-        table.innerText='';
+        console.log(table)
         criarCabecalho();
         renderizarClientes(jsonClientes);
         console.log(response);

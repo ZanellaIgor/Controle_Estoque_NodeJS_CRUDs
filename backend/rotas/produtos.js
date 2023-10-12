@@ -111,7 +111,6 @@ routerProdutos.get('/search', async (req, res) => {
         console.log('Consulta SQL:', query);
     }
     try {
-
         const result = await pool.query(query, values);
         console.log(result.rows)
         res.status(200).json({

@@ -37,7 +37,8 @@ async function consultarProdutos(url) {
         const request = await fetch(`${requisicao}`)
         const response = await request.json();
         const jsonProutos = response.data;
-        table.innerText='';
+        table.innerHTML='';
+        trCabecalho.innerHTML='';
         criarCabecalho();
         renderizarProdutos(jsonProutos);
         console.log(response);

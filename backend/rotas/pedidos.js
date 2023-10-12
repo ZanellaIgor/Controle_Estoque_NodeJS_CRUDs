@@ -27,6 +27,19 @@ routerDocumentos.get('/', async (req, res) => {
     }
 });
 
+routerDocumentos.get('/search?', async(req, res)=>{
+    const {cliente, dataIni, dataFin} = req.query;
+    let query = `
+    SELECT DOC.*, PES.NOME as cliente, PES.CIDADE,PES.ESTADO FROM DOCUMENTOS DOC 
+    INNER JOIN PESSOAS PES ON PES.ID=DOC.ID_PESSOA WHERE`
+    let values =[]
+    try {
+        
+    } catch (error) {
+        
+    }
+})
+
 routerDocumentos.post('/', async (req, res) => {
     const { listaDeProdutos, dadosPedido } = req.body
     const dataAtual = new Date();
