@@ -17,9 +17,7 @@ form {
 }
 input {
     border: none;
-    border-radius: 4px;
     border-bottom: 1px solid aqua;
-    background-color: aqua;
     max-width: 100%;
 }
 button {

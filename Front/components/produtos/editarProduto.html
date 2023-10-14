@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Produto</title>
+    <title>Editar Produto</title>
     <link rel="stylesheet" href="../../layout/footer.css">
     <link rel="stylesheet" href="../../layout/header.css">
     <link rel="stylesheet" href="./editarProduto.css">
@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        <h1>Controle de Estoque</h1>
+        <h1>Editar Produto</h1>
         <a href="../../layout/home.html"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4 21V9l8-6l8 6v12h-6v-7h-4v7H4Z"/></svg></a>
     </header>
     <nav>
@@ -52,7 +52,6 @@
     </nav>
     <main>
         <div class="produto-editar">
-            <h3>Editar Produto</h3>
             <form >
                 <label for="nome">Nome:</label>
                 <input type="text" name="nome" id="nome" placeholder="Digite a Descrição do Produto">
@@ -60,10 +59,6 @@
                 <input type="text" name="referencia" id="referencia" placeholder="Digite a Referência do Produto">
                 <label for="estoque">Estoque:</label>
                 <input type="number" name="estoque" id="estoque" step=".01">
-                <label for="unidade">Unidade:</label>
-                <input type="text" name="unidade" id="unidade" maxlength="3">
-                <label for="imagem">Imagem:</label>
-                <input type="text" name="imagem" id="imagem" placeholder="Digite o Link da imagem...">
                 <button type="submit" class="button-enviar">Editar</button>
             </form>
         </div>
