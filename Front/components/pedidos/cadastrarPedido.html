@@ -63,6 +63,7 @@
                         <ul id="sugestoes"></ul>
                         <div id="error"></div>
                     </div>
+                    <div><label for="dataEmissao">Data de Emissão: <input type="date" name="dataEmissao" id="dataEmissao" readonly></label></div>
                     <label for="tipo">Tipo:
                         <select name="tipo" id="tipo" type>
                             <option value="E">Entrada</option>
@@ -72,7 +73,7 @@
                 </div>
                 <div class="container-enviar">
                     <label for="valorPedido">Valor Total: <input id="valorTotal" name="valorPedido" readonly/></label>
-                    <button id="buttonCadastrar" type="button">Cadastrar</button>
+                    <button id="buttonCadastrar" type="button" class="button-cadastrar">Cadastrar</button>
                 </div>
                 <div class="container-inputs">
                     <div class="container-input-produto">
@@ -83,8 +84,8 @@
                             placeholder="Quantidade"></label>
                         <label for="valorUnit">Valor Unitário<input type="number" name="valorUnit"
                             id="valorUnit" placeholder="Valor unitario"></label>
-                        <button onclick="insertProduto(event)" type="submit">Adicionar</button><button
-                            type="button">Cancelar</button>
+                        <button onclick="insertProduto(event)" type="submit" class="button-adicionar">Adicionar</button><button
+                            type="button" class="button-cancelar">Cancelar</button>
                     </div>
                     <div id="errorProduto"></div>
                 </div>

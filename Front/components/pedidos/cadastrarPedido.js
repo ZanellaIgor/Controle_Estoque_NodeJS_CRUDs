@@ -16,6 +16,7 @@ const cliente = document.getElementById('cliente');
 const tipoPedido = document.getElementById('tipo');
 const messageError = document.getElementById('error')
 
+
 searchInputClientes.addEventListener('input', function() {
     clearTimeout(timeoutId);
     timeoutId =setTimeout(function() {
@@ -111,7 +112,7 @@ function insertProduto(event){
     <td class="quantidade" >${inputQuantidade.value}</td>
     <td class="valorUnit" >${inputValorUnit.value}</td>
     <td class="valorTotal" >${ inputValorUnit.value * inputQuantidade.value}</td>
-    <td><button type="button" onclick="removerProduto(${idSeq})">Excluir</button></td>
+    <td><button type="button" class="button-excluir" onclick="removerProduto(${idSeq})">Excluir</button></td>
     `);
     idSeq++;
     console.log(idSeq)

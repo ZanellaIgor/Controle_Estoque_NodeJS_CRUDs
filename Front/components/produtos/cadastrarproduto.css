@@ -9,8 +9,8 @@ h3 {
 }
 
 form {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     max-width: 60%;
     max-height: 80%;
     height: 100%;
@@ -23,6 +23,7 @@ form {
 input {
     border: none;
     border-bottom: 1px solid aqua;
+    width: 100%;
 }
 
 label {
@@ -31,7 +32,6 @@ label {
 }
 
 button {
-    margin: auto;
     border: none;
     border-radius: 6px;
     background-color: aqua;
