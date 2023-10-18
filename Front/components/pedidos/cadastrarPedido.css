@@ -1,5 +1,6 @@
 main{
     height: 82vh;
+    
 }
 form {
     display: flex;
@@ -21,14 +22,20 @@ button {
     border-radius: 6px;
     background-color: aqua;
     width: 80px;
+    margin: auto;
+    height: 20px;
     cursor: pointer;
 }
 table{
     display: grid; 
+    border-radius: 6px;
+    border: 1px solid black;
+    padding: 10px;
 }
 tr {
     display: grid;
     grid-template-columns: .5fr 2fr 1fr 1fr 1fr 1fr .5fr;
+    margin-top: 5px;
 }
 main ul{
     position: absolute;
@@ -39,13 +46,27 @@ main ul{
 li{
     background-color:var(--cor-nav);
 }
-
+.container-input-produto label {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 90%;
+}
 .container-input-produto{
-    display: inline-flex;
+    display: grid;
+    margin: auto;
+    padding: 5px;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    border-radius: 6px;
+    border: 1px solid black;
+    
 }
-.button-excluir{
-    width: 80px;
+.container-cliente{
+    border-radius: 6px;
+    border: 1px solid black;
+    padding: 5px;
 }
+
 .container-cliente{
     display: inline-flex;
     justify-content: space-between;
@@ -58,20 +79,42 @@ tbody{
 
 tbody tr{
     border-radius: 6px;
-    border: 1px solid red;
+    border: 1px solid black;
 }
 td{
     text-align: right;
     margin-right: 10px;
 }
+
 .descricao , .referencia{
     text-align: left;
     margin-left: 10px; 
 }
+
 #valorTotal{
     width: max-content;
 }
+
 .container-enviar{
     display: flex;
     justify-content: space-between;
+    border-radius: 6px;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.button-adicionar{
+    background-color: rgb(14, 163, 59);
+    color: white;
+}
+
+.button-excluir{
+    width: 80px;
+    background-color: rgb(211, 23, 23);
+    color: white;
+}
+
+.button-cancelar{
+    background-color: rgb(211, 23, 23);
+    color: white;
 }

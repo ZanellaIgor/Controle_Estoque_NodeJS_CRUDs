@@ -17,6 +17,14 @@ const tipoPedido = document.getElementById('tipo');
 const messageError = document.getElementById('error')
 
 
+document.addEventListener("DOMContentLoaded", function() {
+    const data = new Date();
+    data.setTime(data.getTime() - 180 * 60 * 1000);
+    const dataFormatada = data.toISOString().split('T')[0];
+    const dataEmissao = document.getElementById("dataEmissao");
+    dataEmissao.value = dataFormatada;
+});
+
 searchInputClientes.addEventListener('input', function() {
     clearTimeout(timeoutId);
     timeoutId =setTimeout(function() {

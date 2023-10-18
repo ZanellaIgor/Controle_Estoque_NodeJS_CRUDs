@@ -54,7 +54,7 @@ form {
     margin: auto;
     color: red;
     text-align: center;
-    border: 1px solid red;
+    
 }
 .container-tipo-cliente label{
     flex-direction: row;

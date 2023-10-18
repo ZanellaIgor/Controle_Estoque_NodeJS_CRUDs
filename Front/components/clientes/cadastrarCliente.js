@@ -33,7 +33,7 @@ function preenchendoValores(endereco){
     complemento.value=endereco.complemento;
 }
 
-const buttonCadastrar=document.querySelector('.button-enviar');
+const buttonCadastrar=document.querySelector('.button-cadastrar');
 buttonCadastrar.addEventListener('click', (e)=>{
     e.preventDefault();
     messageError.innerHTML='';
