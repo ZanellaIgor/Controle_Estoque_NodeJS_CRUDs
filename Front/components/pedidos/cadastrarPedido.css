@@ -29,17 +29,18 @@ button {
 table{
     display: grid; 
     border-radius: 6px;
-    border: 1px solid black;
+    border: 1px solid #666;
     padding: 10px;
+    
 }
 tr {
     display: grid;
-    grid-template-columns: .5fr 2fr 1fr 1fr 1fr 1fr .5fr;
+    grid-template-columns: .5fr 2fr 1fr 1fr 1fr 1fr 1fr;
     margin-top: 5px;
 }
 main ul{
     position: absolute;
-    z-index: 2;
+    z-index: 99;
     width: 20em;
     border-radius: 4px;
 }
@@ -58,19 +59,19 @@ li{
     padding: 5px;
     grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
     border-radius: 6px;
-    border: 1px solid black;
-    
+    border: 1px solid #666;    
+}
+.container-input-produto ul{
+    margin-top: 40px;
 }
 .container-cliente{
     border-radius: 6px;
-    border: 1px solid black;
+    border: 1px solid #666;
     padding: 5px;
-}
-
-.container-cliente{
     display: inline-flex;
     justify-content: space-between;
 }
+
 tbody{
     width: 100%;
     height: 300px;
@@ -79,7 +80,7 @@ tbody{
 
 tbody tr{
     border-radius: 6px;
-    border: 1px solid black;
+    border: 1px solid #666;
 }
 td{
     text-align: right;
@@ -99,7 +100,7 @@ td{
     display: flex;
     justify-content: space-between;
     border-radius: 6px;
-    border: 1px solid black;
+    border: 1px solid #666;
     padding: 5px;
 }
 
@@ -109,7 +110,7 @@ td{
 }
 
 .button-excluir{
-    width: 80px;
+    width: 60px;
     background-color: rgb(211, 23, 23);
     color: white;
 }

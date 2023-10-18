@@ -16,6 +16,10 @@ const cliente = document.getElementById('cliente');
 const tipoPedido = document.getElementById('tipo');
 const messageError = document.getElementById('error')
 
+const formatter = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+});
 
 document.addEventListener("DOMContentLoaded", function() {
     const data = new Date();
@@ -119,7 +123,7 @@ function insertProduto(event){
     <td class="referencia" >${searchInputProdutos.dataset.referencia}</td>
     <td class="quantidade" >${inputQuantidade.value}</td>
     <td class="valorUnit" >${inputValorUnit.value}</td>
-    <td class="valorTotal" >${ inputValorUnit.value * inputQuantidade.value}</td>
+    <td class="valorTotal" >${formatter.format(inputValorUnit.value * inputQuantidade.value)}</td>
     <td><button type="button" class="button-excluir" onclick="removerProduto(${idSeq})">Excluir</button></td>
     `);
     idSeq++;
@@ -142,13 +146,16 @@ function resetInput(){
 }
 
 function valorTotalPedido(){
-    valorPedido=0
+    let total = 0;
+    
     const tdProdutos = Array.from(document.querySelectorAll('.container-produto'));
     tdProdutos.forEach(linha => {
         const celulas = linha.querySelectorAll('td');
-        valorPedido += parseFloat(celulas[5].textContent);
+        const valorFormatado = celulas[5].textContent; // Valor no formato "R$ 100,00"
+        const valorNumerico = Number(valorFormatado.replace(/[^\d,-]/g, '').replace(',', '.')); // Remove símbolos e substitui a vírgula por ponto, se necessário
+        total += valorNumerico;
     })
-    inputValorTotal.value=valorPedido;
+    inputValorTotal.value=formatter.format(total);
 }
 
 const buttonCadastrar = document.getElementById('buttonCadastrar');
