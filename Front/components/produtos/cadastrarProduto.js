@@ -10,8 +10,8 @@ buttonEnviar.addEventListener('click', (e) => {
 function inputValores() {
     const nome = document.getElementById('nome').value
     const referencia = document.getElementById('referencia').value
-    const estoque = parseFloat(document.getElementById('estoque').value)
-    const valor = parseFloat(document.getElementById('valor').value)
+    const estoque = parseFloat(document.getElementById('estoque').value).toFixed(2)
+    const valor = parseFloat(document.getElementById('valor').value).toFixed(2)
     const novoProduto = {
         nome,
         referencia,

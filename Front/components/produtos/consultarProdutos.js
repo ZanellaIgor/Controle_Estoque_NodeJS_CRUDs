@@ -2,7 +2,12 @@ const baseUrl = "http://localhost:3002/";
 const render = document.querySelector('.produto-render');
 const table = document.createElement("table");
 const trCabecalho =document.createElement('tr');
+const tbody =document.createElement('tbody')
 
+const formatter = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+});
 
 function insertTh(texto) {
     const th = document.createElement("th");
@@ -14,15 +19,17 @@ function insertTh(texto) {
 function criarCabecalho() {
     const th1 = insertTh('Código');
     const th2 = insertTh('Nome');
-    const th3 = insertTh('Valor');
-    const th4 = insertTh('Refêrencia');
+    const th3 = insertTh('Refêrencia');
+    const th4 = insertTh('Valor');
     const th5 = insertTh('Estoque');
     trCabecalho.appendChild(th1)
     trCabecalho.appendChild(th2)
     trCabecalho.appendChild(th3)
     trCabecalho.appendChild(th4)
     trCabecalho.appendChild(th5)
-    table.appendChild(trCabecalho)
+    const thead = document.createElement('thead')
+    thead.appendChild(trCabecalho)
+    table.appendChild(thead)
 }
 function insertText(texto) {
     const td = document.createElement("td");
@@ -33,12 +40,12 @@ function insertText(texto) {
 async function consultarProdutos(url) {
     const requisicao = url ? url : `${baseUrl}produtos`
     console.log(requisicao)
+    table.innerHTML='';
+    tbody.innerHTML='';
     try {
         const request = await fetch(`${requisicao}`)
         const response = await request.json();
         const jsonProutos = response.data;
-        table.innerHTML='';
-        trCabecalho.innerHTML='';
         criarCabecalho();
         renderizarProdutos(jsonProutos);
         console.log(response);
@@ -51,23 +58,26 @@ function renderizarProdutos(jsonProutos){
     jsonProutos.map(produto => {
         const codigo = insertText(produto.id);
         const nome = insertText(produto.nome);
-        const valor = insertText(produto.valor);
-        valor.classList.add('valoresNumericos');
+        nome.classList.add('camposDescritivos')
+        const valor = insertText(formatter.format(produto.valor));
+        valor.classList.add('camposNumericos');
         const referencia = insertText(produto.referencia);
+        referencia.classList.add('c"amposDescritivos')
         const estoque = insertText(produto.estoque);
-        estoque.classList.add('valoresNumericos');
+        estoque.classList.add('camposNumericos');
         const tr = document.createElement('tr');
         const buttonExcluir = insertText(`
-        <button class="button-limpar" onclick="deletarProduto(${produto.id})">Excluir</button> 
+        <button class="button-excluir" onclick="deletarProduto(${produto.id})">Excluir</button> 
         <button class="button-editar"><a href="./editarProduto.html">Editar</a></button>`)
         
         tr.appendChild(codigo);
         tr.appendChild(nome);
-        tr.appendChild(valor);
         tr.appendChild(referencia);
+        tr.appendChild(valor);
         tr.appendChild(estoque);
         tr.appendChild(buttonExcluir);
-        table.appendChild(tr);
+        tbody.appendChild(tr)
+        table.appendChild(tbody);
         
     });
     render.appendChild(table);

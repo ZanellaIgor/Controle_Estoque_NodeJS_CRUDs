@@ -2,6 +2,7 @@ const baseUrl = "http://localhost:3002/";
 const render = document.querySelector('.clientes-render');
 const table = document.createElement("table");
 const trCabecalho =document.createElement('tr');
+const tbody =document.createElement('tbody')
 
 function insertTh(texto) {
     const th = document.createElement("th");
@@ -10,7 +11,6 @@ function insertTh(texto) {
 }
 
 function criarCabecalho() {
-    
     const th1 = insertTh('Código');
     const th2 = insertTh('Nome');
     const th3 = insertTh('Cidade');
@@ -21,7 +21,9 @@ function criarCabecalho() {
     trCabecalho.appendChild(th3)
     trCabecalho.appendChild(th4)
     trCabecalho.appendChild(th5)
-    table.appendChild(trCabecalho)
+    const thead = document.createElement('thead')
+    thead.appendChild(trCabecalho)
+    table.appendChild(thead)
 }
 function insertText(texto) {
     const td = document.createElement("td");
@@ -33,7 +35,7 @@ async function consultarClientes(url) {
     const requisicao = url ? url : `${baseUrl}clientes`
     console.log(requisicao)
     table.innerHTML='';
-    trCabecalho.innerHTML=''
+    tbody.innerHTML=''
     try {
         const request = await fetch(`${requisicao}`)
         const response = await request.json();
@@ -54,20 +56,18 @@ function renderizarClientes(jsonClientes){
         const cidade = insertText(cliente.cidade);
         const estado = insertText(cliente.estado);
         const tipo = insertText(cliente.tipo);
-        
         const tr = document.createElement('tr');
         const buttonExcluir = insertText(`
-        <button class="button-limpar" onclick="deletarProduto(${cliente.id})">Excluir</button> 
-        <button class="button-editar"><a href="./editarCliente.html">Editar</a></button>`)
-        
+        <button class="button-excluir" onclick="deletarProduto(${cliente.id})">Excluir</button> 
+        <button class="button-editar"><a href="./editarCliente.html">Editar</a></button>`)  
         tr.appendChild(codigo);
         tr.appendChild(nome);
         tr.appendChild(cidade);
         tr.appendChild(estado);
         tr.appendChild(tipo);
         tr.appendChild(buttonExcluir);
-        table.appendChild(tr);
-        
+        tbody.appendChild(tr)
+        table.appendChild(tbody);
     });
     render.appendChild(table);
 };

@@ -2,7 +2,7 @@ const baseUrl = "http://localhost:3002/";
 const render = document.querySelector('.pedidos-render');
 const table = document.createElement('table');
 const trCabecalho= document.createElement('tr');
-
+const tbody =document.createElement('tbody')
 render.appendChild(table);
 
 function insertTh(texto) {
@@ -24,7 +24,9 @@ function criarCabecalho() {
     trCabecalho.appendChild(th4)
     trCabecalho.appendChild(th5)
     trCabecalho.appendChild(th6)
-    table.appendChild(trCabecalho)
+    const thead = document.createElement('thead')
+    thead.appendChild(trCabecalho)
+    table.appendChild(thead)
 }
 
 async function consultarDocumentos(url) {
@@ -35,7 +37,7 @@ async function consultarDocumentos(url) {
         const response = await request.json();
         const jsonPedidos = response.data;
         console.log(jsonPedidos)
-        trCabecalho.innerHTML='';
+        tbody.innerHTML='';
         table.innerHTML='';
         criarCabecalho();
         renderizarClientes(jsonPedidos);
@@ -60,8 +62,8 @@ function renderizarClientes(jsonPedidos){
         tr.appendChild(dataEmissao);
         tr.appendChild(cidade);
         tr.appendChild(tipo);
-
-        table.appendChild(tr);
+        tbody.appendChild(tr)
+        table.appendChild(tbody);
     });
     render.appendChild(table);
 };

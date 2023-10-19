@@ -24,7 +24,7 @@ body{
     gap: 30px;
 }
 header {
-    height: 7vh;
+    height: 8vh;
     background-color:var(--cor-background-bordas);
     display: flex;
     align-items: center;
@@ -36,9 +36,11 @@ header h1{
     height: 100%;
     font-family: 'Shadows Into Light', cursive;
     letter-spacing: .5rem;
+    margin-left: 30px;
 }
 svg{
     color: var(--cor-font);
+    margin-right: 30px;
 }
 nav{
     display: grid;
@@ -48,7 +50,6 @@ nav{
     border-radius: 0px 0px 2px 2px;
     font-weight: 400;
     font-size: 1em;
-    height: 3vh;
     text-align: center;
 }
 li{
@@ -71,7 +72,7 @@ li{
 } 
 li:hover{
     background-color:var(--cor-nav-hover);
-    border-radius: 6px;
+   
 }
 main{
     min-height: 82vh;
