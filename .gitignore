@@ -1,5 +1,5 @@
 # Dependências de gerenciamento de pacotes (Node.js)
 node_modules
-
+backend/node_modules
 .npm
 package-lock.json
