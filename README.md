@@ -33,7 +33,6 @@ Para executar a aplicação, siga as etapas abaixo:
 
    ```bash
    git clone https://github.com/ZanellaIgor/Controle_Estoque_NodeJS_CRUDs.git
-   cd controle-estoque-backend
    ```
 
 2. **Instale as Dependências**: Execute `npm install` ou `yarn` para instalar todas as dependências necessárias.
